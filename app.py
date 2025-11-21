@@ -36,8 +36,8 @@ st.markdown("""
     }
     
     .block-container {
-        padding: 0.5rem !important;
-        max-width: 420px !important;
+        padding: 0.5rem   ;
+        max-width: 420px   ;
     }
     
     /* Hide Streamlit elements */
@@ -250,70 +250,70 @@ st.markdown("""
     
     /* Radio Buttons - COMPACT 2x2 Grid */
     div[data-testid="stRadio"] > div {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 0.5rem !important;
+        display: grid  ;
+        grid-template-columns: 1fr 1fr   ;
+        gap: 0.5rem   ;
     }
     
     div[data-testid="stRadio"] > div > label {
-        background: white !important;
-        border: 2px solid #e5e7eb !important;
-        border-radius: 10px !important;
-        padding: 0.75rem 0.4rem !important;
-        cursor: pointer !important;
-        transition: all 0.2s !important;
-        font-size: 0.75rem !important;
-        font-weight: 500 !important;
-        color: #374151 !important;
-        text-align: center !important;
-        margin: 0 !important;
-        min-height: 52px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
-        line-height: 1.3 !important;
+        background: white   ;
+        border: 2px solid #e5e7eb   ;
+        border-radius: 10px   ;
+        padding: 0.75rem 0.4rem   ;
+        cursor: pointer   ;
+        transition: all 0.2s   ;
+        font-size: 0.75rem   ;
+        font-weight: 500   ;
+        color: #374151   ;
+        text-align: center   ;
+        margin: 0   ;
+        min-height: 52px   ;
+        display: flex   ;
+        align-items: center   ;
+        justify-content: center   ;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05)   ;
+        line-height: 1.3   ;
     }
     
     div[data-testid="stRadio"] > div > label:hover {
-        border-color: #16a34a !important;
-        background: #f0fdf4 !important;
-        transform: translateY(-1px) !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        border-color: #16a34a   ;
+        background: #f0fdf4   ;
+        transform: translateY(-1px)   ;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1)   ;
     }
     
     div[data-testid="stRadio"] > div > label[data-checked="true"] {
-        border-color: #16a34a !important;
-        background: linear-gradient(135deg, #dcfce7, #bbf7d0) !important;
-        color: #166534 !important;
-        font-weight: 700 !important;
-        transform: scale(1.02) !important;
-        box-shadow: 0 3px 8px rgba(22, 163, 74, 0.3) !important;
+        border-color: #16a34a   ;
+        background: linear-gradient(135deg, #dcfce7, #bbf7d0)   ;
+        color: #166534   ;
+        font-weight: 700   ;
+        transform: scale(1.02)   ;
+        box-shadow: 0 3px 8px rgba(22, 163, 74, 0.3)   ;
     }
     
     /* Property selection - 2x4 grid for 8 items */
     div[data-testid="stRadio"][data-baseweb="radio"] > div:has(> label:nth-child(8)) {
-        grid-template-columns: 1fr 1fr !important;
+        grid-template-columns: 1fr 1fr   ;
     }
     
     /* Button - COMPACT */
     .stButton > button {
         width: 100%;
-        background: linear-gradient(135deg, #dc2626, #16a34a) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 10px !important;
-        padding: 0.65rem !important;
-        font-size: 0.8rem !important;
-        font-weight: 700 !important;
-        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3) !important;
-        transition: all 0.3s !important;
-        margin-top: 0.5rem !important;
+        background: linear-gradient(135deg, #dc2626, #16a34a)   ;
+        color: white   ;
+        border: none   ;
+        border-radius: 10px   ;
+        padding: 0.65rem   ;
+        font-size: 0.8rem   ;
+        font-weight: 700   ;
+        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3)   ;
+        transition: all 0.3s   ;
+        margin-top: 0.5rem   ;
     }
     
     .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
+        transform: translateY(-2px)   ;
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4)   ;
     }
     
     /* Result Box - COMPACT */
@@ -413,24 +413,24 @@ st.markdown("""
     
     /* Inputs - COMPACT */
     .stTextInput input, .stSelectbox > div > div {
-        background: white !important;
-        border: 2px solid #e5e7eb !important;
-        border-radius: 8px !important;
-        padding: 0.6rem !important;
-        font-size: 0.8rem !important;
-        color: #1f2937 !important;
+        background: white   ;
+        border: 2px solid #e5e7eb   ;
+        border-radius: 8px   ;
+        padding: 0.6rem   ;
+        font-size: 0.8rem   ;
+        color: #1f2937   ;
     }
     
     .stTextInput input:focus, .stSelectbox > div > div:focus-within {
-        border-color: #16a34a !important;
-        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1) !important;
+        border-color: #16a34a   ;
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1)   ;
     }
     
     .stTextInput label, .stSelectbox label {
-        color: #374151 !important;
-        font-size: 0.75rem !important;
-        font-weight: 600 !important;
-        margin-bottom: 0.2rem !important;
+        color: #374151   ;
+        font-size: 0.75rem   ;
+        font-weight: 600   ;
+        margin-bottom: 0.2rem   ;
     }
     
     /* Selectbox - ULTRA AGGRESSIVE FIX for dropdown visibility */
@@ -446,49 +446,49 @@ st.markdown("""
     .stSelectbox [data-baseweb="menu"] *,
     .stSelectbox ul *,
     .stSelectbox li * {
-        color: #1f2937 !important;
+        color: #1f2937   ;
     }
     
     /* Main selectbox container */
     .stSelectbox [data-baseweb="select"] {
-        background: white !important;
-        color: #1f2937 !important;
+        background: white   ;
+        color: #1f2937   ;
     }
     
     .stSelectbox [data-baseweb="select"] > div {
-        color: #1f2937 !important;
-        background: white !important;
+        color: #1f2937   ;
+        background: white   ;
     }
     
     .stSelectbox [data-baseweb="select"] input {
-        color: #1f2937 !important;
-        background: white !important;
+        color: #1f2937   ;
+        background: white   ;
     }
     
     .stSelectbox [data-baseweb="select"] span {
-        color: #1f2937 !important;
+        color: #1f2937   ;
     }
     
     /* Dropdown popover */
     .stSelectbox [data-baseweb="popover"] {
-        background: white !important;
+        background: white   ;
     }
     
     .stSelectbox [data-baseweb="popover"] > div {
-        background: white !important;
+        background: white   ;
     }
     
     /* Menu container */
     .stSelectbox [data-baseweb="menu"] {
-        background: white !important;
+        background: white   ;
     }
     
     .stSelectbox [data-baseweb="menu"] > div {
-        background: white !important;
+        background: white   ;
     }
     
     .stSelectbox ul[role="listbox"] {
-        background: white !important;
+        background: white   ;
     }
     
     /* Options - EVERY POSSIBLE SELECTOR */
@@ -497,10 +497,10 @@ st.markdown("""
     .stSelectbox [data-baseweb="menu"] li,
     .stSelectbox ul li,
     .stSelectbox [data-baseweb="list-item"] {
-        background: white !important;
-        color: #1f2937 !important;
-        font-size: 0.8rem !important;
-        padding: 0.6rem 0.75rem !important;
+        background: white   ;
+        color: #1f2937   ;
+        font-size: 0.8rem   ;
+        padding: 0.6rem 0.75rem   ;
     }
     
     /* Hover state */
@@ -508,32 +508,32 @@ st.markdown("""
     .stSelectbox li[role="option"]:hover,
     .stSelectbox [data-baseweb="menu"] li:hover,
     .stSelectbox ul li:hover {
-        background: #f0fdf4 !important;
-        color: #166534 !important;
+        background: #f0fdf4   ;
+        color: #166534   ;
     }
     
     /* Selected state */
     .stSelectbox [aria-selected="true"],
     .stSelectbox li[aria-selected="true"],
     .stSelectbox [data-baseweb="list-item"][aria-selected="true"] {
-        background: #dcfce7 !important;
-        color: #166534 !important;
-        font-weight: 600 !important;
+        background: #dcfce7   ;
+        color: #166534   ;
+        font-weight: 600   ;
     }
     
     /* Selected value display */
     .stSelectbox [data-baseweb="select"] [data-baseweb="tag"] {
-        background: #dcfce7 !important;
-        color: #166534 !important;
+        background: #dcfce7   ;
+        color: #166534   ;
     }
     
     .stSelectbox [data-baseweb="tag"] span {
-        color: #166534 !important;
+        color: #166534   ;
     }
     
     /* Placeholder */
     .stSelectbox [data-baseweb="select"] input::placeholder {
-        color: #9ca3af !important;
+        color: #9ca3af   ;
     }
     
     /* Force text color on all children */
@@ -541,54 +541,54 @@ st.markdown("""
     .stSelectbox [data-baseweb="popover"] span,
     .stSelectbox [data-baseweb="menu"] div,
     .stSelectbox [data-baseweb="menu"] span {
-        color: #1f2937 !important;
+        color: #1f2937   ;
     }
     
     /* List item content */
     .stSelectbox li div,
     .stSelectbox li span {
-        color: #1f2937 !important;
+        color: #1f2937   ;
     }
     
     /* Override any inherited colors */
     .stSelectbox [data-baseweb] {
-        color: #1f2937 !important;
+        color: #1f2937   ;
     }
     
     /* NUCLEAR OPTION: Force selected value to be visible */
     .stSelectbox [data-baseweb="select"] [class*="singleValue"] {
-        color: #1f2937 !important;
+        color: #1f2937   ;
     }
     
     .stSelectbox [data-baseweb="select"] [class*="value-container"] * {
-        color: #1f2937 !important;
+        color: #1f2937   ;
     }
     
     .stSelectbox [data-baseweb="select"] [class*="ValueContainer"] * {
-        color: #1f2937 !important;
+        color: #1f2937   ;
     }
     
     /* Force ALL elements in the select control */
     .stSelectbox [data-baseweb="select"] * {
-        color: #1f2937 !important;
+        color: #1f2937   ;
     }
     
     /* Expander - COMPACT */
     .streamlit-expanderHeader {
-        background: white !important;
-        border: 1px solid #e2e8f0 !important;
-        border-radius: 8px !important;
-        color: #1f2937 !important;
-        font-size: 0.75rem !important;
-        padding: 0.4rem !important;
+        background: white   ;
+        border: 1px solid #e2e8f0   ;
+        border-radius: 8px   ;
+        color: #1f2937   ;
+        font-size: 0.75rem   ;
+        padding: 0.4rem   ;
     }
     
     .streamlit-expanderContent {
-        background: white !important;
-        border: 1px solid #e2e8f0 !important;
-        border-top: none !important;
-        border-radius: 0 0 8px 8px !important;
-        padding: 0.5rem !important;
+        background: white   ;
+        border: 1px solid #e2e8f0   ;
+        border-top: none   ;
+        border-radius: 0 0 8px 8px   ;
+        padding: 0.5rem   ;
     }
     
     /* Welcome - COMPACT */
@@ -687,31 +687,31 @@ st.markdown("""
     
     /* Form spacing */
     .stForm {
-        margin-bottom: 0 !important;
+        margin-bottom: 0   ;
     }
     
     /* Reduce all spacing */
     div[data-testid="stVerticalBlock"] > div {
-        gap: 0.5rem !important;
+        gap: 0.5rem   ;
     }
     
     /* Info/Success/Error boxes - COMPACT */
     .stAlert {
-        padding: 0.4rem !important;
-        font-size: 0.7rem !important;
-        border-radius: 8px !important;
-        margin: 0.3rem 0 !important;
+        padding: 0.4rem   ;
+        font-size: 0.7rem   ;
+        border-radius: 8px   ;
+        margin: 0.3rem 0   ;
     }
     
     /* Slider - COMPACT */
     .stSlider {
-        padding: 0.3rem 0 !important;
+        padding: 0.3rem 0   ;
     }
     
     /* Checkbox */
     .stCheckbox label {
-        font-size: 0.75rem !important;
-        color: #374151 !important;
+        font-size: 0.75rem   ;
+        color: #374151   ;
     }
 </style>
 """, unsafe_allow_html=True)
