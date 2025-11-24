@@ -17,7 +17,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Ultra-Compact White Theme CSS - NO SCROLL
+# Ultra-Compact White Theme CSS - FIXED FOR STREAMLIT CLOUD
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -36,8 +36,8 @@ st.markdown("""
     }
     
     .block-container {
-        padding: 0.5rem   ;
-        max-width: 420px   ;
+        padding: 0.5rem;
+        max-width: 420px;
     }
     
     /* Hide Streamlit elements */
@@ -250,70 +250,65 @@ st.markdown("""
     
     /* Radio Buttons - COMPACT 2x2 Grid */
     div[data-testid="stRadio"] > div {
-        display: grid  ;
-        grid-template-columns: 1fr 1fr   ;
-        gap: 0.5rem   ;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
     }
     
     div[data-testid="stRadio"] > div > label {
-        background: white   ;
-        border: 2px solid #e5e7eb   ;
-        border-radius: 10px   ;
-        padding: 0.75rem 0.4rem   ;
-        cursor: pointer   ;
-        transition: all 0.2s   ;
-        font-size: 0.75rem   ;
-        font-weight: 500   ;
-        color: #374151   ;
-        text-align: center   ;
-        margin: 0   ;
-        min-height: 52px   ;
-        display: flex   ;
-        align-items: center   ;
-        justify-content: center   ;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05)   ;
-        line-height: 1.3   ;
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 0.75rem 0.4rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #374151;
+        text-align: center;
+        margin: 0;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        line-height: 1.3;
     }
     
     div[data-testid="stRadio"] > div > label:hover {
-        border-color: #16a34a   ;
-        background: #f0fdf4   ;
-        transform: translateY(-1px)   ;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1)   ;
+        border-color: #16a34a;
+        background: #f0fdf4;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
     div[data-testid="stRadio"] > div > label[data-checked="true"] {
-        border-color: #16a34a   ;
-        background: linear-gradient(135deg, #dcfce7, #bbf7d0)   ;
-        color: #166534   ;
-        font-weight: 700   ;
-        transform: scale(1.02)   ;
-        box-shadow: 0 3px 8px rgba(22, 163, 74, 0.3)   ;
-    }
-    
-    /* Property selection - 2x4 grid for 8 items */
-    div[data-testid="stRadio"][data-baseweb="radio"] > div:has(> label:nth-child(8)) {
-        grid-template-columns: 1fr 1fr   ;
+        border-color: #16a34a;
+        background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+        color: #166534;
+        font-weight: 700;
+        transform: scale(1.02);
+        box-shadow: 0 3px 8px rgba(22, 163, 74, 0.3);
     }
     
     /* Button - COMPACT */
     .stButton > button {
         width: 100%;
-        background: linear-gradient(135deg, #dc2626, #16a34a)   ;
-        color: white   ;
-        border: none   ;
-        border-radius: 10px   ;
-        padding: 0.65rem   ;
-        font-size: 0.8rem   ;
-        font-weight: 700   ;
-        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3)   ;
-        transition: all 0.3s   ;
-        margin-top: 0.5rem   ;
+        background: linear-gradient(135deg, #dc2626, #16a34a);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 0.65rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        transition: all 0.3s;
+        margin-top: 0.5rem;
     }
     
     .stButton > button:hover {
-        transform: translateY(-2px)   ;
-        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4)   ;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
     }
     
     /* Result Box - COMPACT */
@@ -411,184 +406,143 @@ st.markdown("""
         animation: float 3s ease-in-out infinite 1.5s;
     }
     
-    /* Inputs - COMPACT */
-    .stTextInput input, .stSelectbox > div > div {
-        background: white   ;
-        border: 2px solid #e5e7eb   ;
-        border-radius: 8px   ;
-        padding: 0.6rem   ;
-        font-size: 0.8rem   ;
-        color: #1f2937   ;
+    /* Inputs - COMPACT - FIXED FOR CLOUD */
+    .stTextInput input {
+        background: white !important;
+        border: 2px solid #e5e7eb !important;
+        border-radius: 8px !important;
+        padding: 0.6rem !important;
+        font-size: 0.8rem !important;
+        color: #1f2937 !important;
     }
     
-    .stTextInput input:focus, .stSelectbox > div > div:focus-within {
-        border-color: #16a34a   ;
-        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1)   ;
+    .stTextInput input:focus {
+        border-color: #16a34a !important;
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1) !important;
     }
     
-    .stTextInput label, .stSelectbox label {
-        color: #374151   ;
-        font-size: 0.75rem   ;
-        font-weight: 600   ;
-        margin-bottom: 0.2rem   ;
+    .stTextInput label {
+        color: #374151 !important;
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.2rem !important;
     }
     
-    /* Selectbox - ULTRA AGGRESSIVE FIX for dropdown visibility */
-    /* Force all text in selectbox to be dark */
-    .stSelectbox,
-    .stSelectbox *,
-    .stSelectbox div,
-    .stSelectbox span,
-    .stSelectbox input,
-    .stSelectbox [data-baseweb] *,
-    .stSelectbox [data-baseweb="select"] *,
+    /* Selectbox - COMPREHENSIVE FIX FOR STREAMLIT CLOUD */
+    /* Main container and labels */
+    .stSelectbox label {
+        color: #374151 !important;
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.2rem !important;
+    }
+    
+    /* The select box control */
+    .stSelectbox [data-baseweb="select"] {
+        background: white !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"] > div {
+        background: white !important;
+        border: 2px solid #e5e7eb !important;
+        border-radius: 8px !important;
+        padding: 0.6rem !important;
+        font-size: 0.8rem !important;
+        min-height: auto !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"]:focus-within > div {
+        border-color: #16a34a !important;
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1) !important;
+    }
+    
+    /* Selected value text */
+    .stSelectbox [data-baseweb="select"] input,
+    .stSelectbox [data-baseweb="select"] input::placeholder {
+        color: #1f2937 !important;
+        font-size: 0.8rem !important;
+    }
+    
+    /* All text in selectbox */
+    .stSelectbox div[data-baseweb="select"] span,
+    .stSelectbox div[data-baseweb="select"] div {
+        color: #1f2937 !important;
+    }
+    
+    /* Dropdown menu container */
+    .stSelectbox [data-baseweb="popover"] {
+        background: white !important;
+        z-index: 999999 !important;
+    }
+    
+    .stSelectbox [data-baseweb="menu"] {
+        background: white !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    }
+    
+    /* Dropdown options */
+    .stSelectbox ul[role="listbox"] {
+        background: white !important;
+        padding: 0.25rem !important;
+    }
+    
+    .stSelectbox li[role="option"] {
+        background: white !important;
+        color: #1f2937 !important;
+        font-size: 0.8rem !important;
+        padding: 0.6rem 0.75rem !important;
+        margin: 0.15rem 0 !important;
+        border-radius: 6px !important;
+        cursor: pointer !important;
+    }
+    
+    .stSelectbox li[role="option"]:hover {
+        background: #f0fdf4 !important;
+        color: #166534 !important;
+    }
+    
+    .stSelectbox li[role="option"][aria-selected="true"] {
+        background: #dcfce7 !important;
+        color: #166534 !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Make sure all dropdown text is visible */
     .stSelectbox [data-baseweb="popover"] *,
     .stSelectbox [data-baseweb="menu"] *,
     .stSelectbox ul *,
     .stSelectbox li * {
-        color: #1f2937   ;
+        color: #1f2937 !important;
     }
     
-    /* Main selectbox container */
-    .stSelectbox [data-baseweb="select"] {
-        background: white   ;
-        color: #1f2937   ;
-    }
-    
-    .stSelectbox [data-baseweb="select"] > div {
-        color: #1f2937   ;
-        background: white   ;
-    }
-    
-    .stSelectbox [data-baseweb="select"] input {
-        color: #1f2937   ;
-        background: white   ;
-    }
-    
-    .stSelectbox [data-baseweb="select"] span {
-        color: #1f2937   ;
-    }
-    
-    /* Dropdown popover */
-    .stSelectbox [data-baseweb="popover"] {
-        background: white   ;
-    }
-    
-    .stSelectbox [data-baseweb="popover"] > div {
-        background: white   ;
-    }
-    
-    /* Menu container */
-    .stSelectbox [data-baseweb="menu"] {
-        background: white   ;
-    }
-    
-    .stSelectbox [data-baseweb="menu"] > div {
-        background: white   ;
-    }
-    
-    .stSelectbox ul[role="listbox"] {
-        background: white   ;
-    }
-    
-    /* Options - EVERY POSSIBLE SELECTOR */
-    .stSelectbox [role="option"],
-    .stSelectbox li[role="option"],
-    .stSelectbox [data-baseweb="menu"] li,
-    .stSelectbox ul li,
-    .stSelectbox [data-baseweb="list-item"] {
-        background: white   ;
-        color: #1f2937   ;
-        font-size: 0.8rem   ;
-        padding: 0.6rem 0.75rem   ;
-    }
-    
-    /* Hover state */
-    .stSelectbox [role="option"]:hover,
-    .stSelectbox li[role="option"]:hover,
-    .stSelectbox [data-baseweb="menu"] li:hover,
-    .stSelectbox ul li:hover {
-        background: #f0fdf4   ;
-        color: #166534   ;
-    }
-    
-    /* Selected state */
-    .stSelectbox [aria-selected="true"],
-    .stSelectbox li[aria-selected="true"],
-    .stSelectbox [data-baseweb="list-item"][aria-selected="true"] {
-        background: #dcfce7   ;
-        color: #166534   ;
-        font-weight: 600   ;
-    }
-    
-    /* Selected value display */
-    .stSelectbox [data-baseweb="select"] [data-baseweb="tag"] {
-        background: #dcfce7   ;
-        color: #166534   ;
-    }
-    
-    .stSelectbox [data-baseweb="tag"] span {
-        color: #166534   ;
-    }
-    
-    /* Placeholder */
-    .stSelectbox [data-baseweb="select"] input::placeholder {
-        color: #9ca3af   ;
-    }
-    
-    /* Force text color on all children */
-    .stSelectbox [data-baseweb="popover"] div,
-    .stSelectbox [data-baseweb="popover"] span,
-    .stSelectbox [data-baseweb="menu"] div,
-    .stSelectbox [data-baseweb="menu"] span {
-        color: #1f2937   ;
-    }
-    
-    /* List item content */
-    .stSelectbox li div,
-    .stSelectbox li span {
-        color: #1f2937   ;
-    }
-    
-    /* Override any inherited colors */
-    .stSelectbox [data-baseweb] {
-        color: #1f2937   ;
-    }
-    
-    /* NUCLEAR OPTION: Force selected value to be visible */
-    .stSelectbox [data-baseweb="select"] [class*="singleValue"] {
-        color: #1f2937   ;
-    }
-    
-    .stSelectbox [data-baseweb="select"] [class*="value-container"] * {
-        color: #1f2937   ;
-    }
-    
-    .stSelectbox [data-baseweb="select"] [class*="ValueContainer"] * {
-        color: #1f2937   ;
-    }
-    
-    /* Force ALL elements in the select control */
-    .stSelectbox [data-baseweb="select"] * {
-        color: #1f2937   ;
-    }
-    
-    /* Expander - COMPACT */
+    /* Expander - FIXED FOR CLOUD */
     .streamlit-expanderHeader {
-        background: white   ;
-        border: 1px solid #e2e8f0   ;
-        border-radius: 8px   ;
-        color: #1f2937   ;
-        font-size: 0.75rem   ;
-        padding: 0.4rem   ;
+        background: white !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 8px !important;
+        color: #1f2937 !important;
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        padding: 0.5rem 0.75rem !important;
+    }
+    
+    .streamlit-expanderHeader:hover {
+        border-color: #cbd5e1 !important;
     }
     
     .streamlit-expanderContent {
-        background: white   ;
-        border: 1px solid #e2e8f0   ;
-        border-top: none   ;
-        border-radius: 0 0 8px 8px   ;
-        padding: 0.5rem   ;
+        background: white !important;
+        border: 1px solid #e2e8f0 !important;
+        border-top: none !important;
+        border-radius: 0 0 8px 8px !important;
+        padding: 0.75rem !important;
+    }
+    
+    /* Expander icon */
+    .streamlit-expanderHeader svg {
+        fill: #1f2937 !important;
     }
     
     /* Welcome - COMPACT */
@@ -687,31 +641,46 @@ st.markdown("""
     
     /* Form spacing */
     .stForm {
-        margin-bottom: 0   ;
+        margin-bottom: 0;
     }
     
     /* Reduce all spacing */
     div[data-testid="stVerticalBlock"] > div {
-        gap: 0.5rem   ;
+        gap: 0.5rem;
     }
     
     /* Info/Success/Error boxes - COMPACT */
     .stAlert {
-        padding: 0.4rem   ;
-        font-size: 0.7rem   ;
-        border-radius: 8px   ;
-        margin: 0.3rem 0   ;
+        padding: 0.4rem;
+        font-size: 0.7rem;
+        border-radius: 8px;
+        margin: 0.3rem 0;
     }
     
-    /* Slider - COMPACT */
+    /* Slider - COMPACT - FIXED FOR CLOUD */
     .stSlider {
-        padding: 0.3rem 0   ;
+        padding: 0.3rem 0;
     }
     
-    /* Checkbox */
+    .stSlider label {
+        color: #374151 !important;
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+    }
+    
+    .stSlider [data-baseweb="slider"] {
+        margin-top: 0.5rem;
+    }
+    
+    /* Checkbox - FIXED FOR CLOUD */
     .stCheckbox label {
-        font-size: 0.75rem   ;
-        color: #374151   ;
+        font-size: 0.75rem !important;
+        color: #374151 !important;
+        font-weight: 500 !important;
+    }
+    
+    .stCheckbox label span {
+        color: #374151 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -798,176 +767,170 @@ ACHIEVEMENTS = [
         "description": "Improved from 40% to 51% year-over-year through enhanced programs and team engagement.",
         "stats": [
             {"label": "YoY Growth", "value": "+11%"},
-            {"label": "Diverted", "value": "127t"},
-            {"label": "Contamination", "value": "<5%"}
+            {"label": "Recycling Rate", "value": "51%"},
+            {"label": "Waste Diverted", "value": "2.4T"}
         ],
         "quiz": {
-            "question": "What is our current recycling rate achievement?",
-            "options": ["40%", "45%", "51%", "60%"],
-            "correct": "51%"
+            "question": "What was our year-over-year recycling improvement?",
+            "options": ["+8%", "+11%", "+15%", "+20%"],
+            "correct": "+11%"
         }
     },
     {
         "day": 5,
-        "title": "Marketplace Success",
-        "subtitle": "Circular Economy",
-        "emoji": "🛍️",
-        "color": "#a855f7",
-        "description": "Our marketplace platform connects surplus items with those who need them.",
+        "title": "Energy Efficiency",
+        "subtitle": "Smart Management",
+        "emoji": "⚡",
+        "color": "#eab308",
+        "description": "Strategic energy management delivering significant cost savings while reducing environmental impact.",
         "stats": [
-            {"label": "Value", "value": "£45K"},
-            {"label": "Donations", "value": "320"},
-            {"label": "Waste Avoided", "value": "3.2t"}
+            {"label": "Cost Savings", "value": "£45K"},
+            {"label": "kWh Reduced", "value": "180K"},
+            {"label": "CO₂ Saved", "value": "42T"}
         ],
         "quiz": {
-            "question": "How many items have been donated to charity through the marketplace?",
-            "options": ["200", "320", "450", "500"],
-            "correct": "320"
+            "question": "How much did we save through energy efficiency?",
+            "options": ["£30K", "£45K", "£60K", "£75K"],
+            "correct": "£45K"
         }
     },
     {
         "day": 6,
-        "title": "Community Impact",
-        "subtitle": "Giving Back",
-        "emoji": "❤️",
-        "color": "#ef4444",
-        "description": "Through dedicated fundraising and volunteer efforts, we've made a real difference.",
+        "title": "Water Conservation",
+        "subtitle": "Resource Protection",
+        "emoji": "💧",
+        "color": "#06b6d4",
+        "description": "Smart water management systems reducing consumption across all properties.",
         "stats": [
-            {"label": "Hours", "value": "1,240"},
-            {"label": "Team", "value": "78%"},
-            {"label": "Charities", "value": "15"}
+            {"label": "Litres Saved", "value": "2.1M"},
+            {"label": "Properties", "value": "12"},
+            {"label": "Reduction", "value": "18%"}
         ],
         "quiz": {
-            "question": "How many volunteer hours did our team contribute this year?",
-            "options": ["800", "1,000", "1,240", "1,500"],
-            "correct": "1,240"
+            "question": "How many litres of water did we save?",
+            "options": ["1.5M", "2.1M", "2.8M", "3.2M"],
+            "correct": "2.1M"
         }
     },
     {
         "day": 7,
-        "title": "Charity Partnerships",
-        "subtitle": "Lunch & Learn Series",
-        "emoji": "🤝",
-        "color": "#6366f1",
-        "description": "Educational sessions connecting team members with charity partners.",
+        "title": "Food Waste Reduction",
+        "subtitle": "Zero Waste Journey",
+        "emoji": "🍽️",
+        "color": "#84cc16",
+        "description": "Comprehensive food waste program with donations and composting initiatives.",
         "stats": [
-            {"label": "Attendance", "value": "92%"},
-            {"label": "Partners", "value": "12"},
-            {"label": "Hours", "value": "360"}
+            {"label": "Meals Saved", "value": "3,400"},
+            {"label": "Waste Reduced", "value": "34%"},
+            {"label": "Value", "value": "£28K"}
         ],
         "quiz": {
-            "question": "How many Lunch & Learn sessions were delivered this year?",
-            "options": ["18", "24", "30", "36"],
-            "correct": "24"
+            "question": "How many meals were saved from waste?",
+            "options": ["2,200", "3,400", "4,100", "5,000"],
+            "correct": "3,400"
         }
     },
     {
         "day": 8,
-        "title": "Wave Innovation",
-        "subtitle": "Westin Excellence",
-        "emoji": "⚡",
-        "color": "#06b6d4",
-        "description": "The Westin's Wave initiative demonstrates smart energy management.",
+        "title": "Sustainable Procurement",
+        "subtitle": "Responsible Sourcing",
+        "emoji": "🛒",
+        "color": "#8b5cf6",
+        "description": "Prioritising eco-friendly suppliers and sustainable product alternatives.",
         "stats": [
-            {"label": "kWh Saved", "value": "145K"},
-            {"label": "Savings", "value": "£32K"},
-            {"label": "Carbon", "value": "34t"}
+            {"label": "Eco Products", "value": "78%"},
+            {"label": "Suppliers", "value": "45"},
+            {"label": "Savings", "value": "£32K"}
         ],
         "quiz": {
-            "question": "What percentage of energy reduction did the Westin Wave initiative achieve?",
-            "options": ["15%", "18%", "22%", "25%"],
-            "correct": "22%"
+            "question": "What percentage of our products are eco-friendly?",
+            "options": ["65%", "72%", "78%", "85%"],
+            "correct": "78%"
         }
     },
     {
         "day": 9,
-        "title": "Food Waste Warriors",
-        "subtitle": "Zero Waste Journey",
-        "emoji": "🍽️",
-        "color": "#f97316",
-        "description": "Innovative tracking and prevention programs have dramatically reduced food waste.",
+        "title": "Team Training",
+        "subtitle": "Building Expertise",
+        "emoji": "📚",
+        "color": "#ec4899",
+        "description": "Comprehensive sustainability training empowering team members as change agents.",
         "stats": [
-            {"label": "Food Saved", "value": "18t"},
-            {"label": "Meals", "value": "42K"},
-            {"label": "Savings", "value": "£24K"}
+            {"label": "Hours", "value": "420"},
+            {"label": "Trained", "value": "156"},
+            {"label": "Satisfaction", "value": "96%"}
         ],
         "quiz": {
-            "question": "How many tonnes of food waste did we save this year?",
-            "options": ["12", "15", "18", "22"],
-            "correct": "18"
+            "question": "How many team members received sustainability training?",
+            "options": ["120", "156", "180", "200"],
+            "correct": "156"
         }
     },
     {
         "day": 10,
-        "title": "Energy Excellence",
-        "subtitle": "Smart Management",
-        "emoji": "💡",
-        "color": "#eab308",
-        "description": "Data-driven energy management delivering measurable results.",
+        "title": "Carbon Footprint",
+        "subtitle": "Climate Action",
+        "emoji": "🌍",
+        "color": "#10b981",
+        "description": "Measurable reduction in carbon emissions through comprehensive initiatives.",
         "stats": [
-            {"label": "Properties", "value": "12"},
-            {"label": "Savings", "value": "£156K"},
-            {"label": "Carbon", "value": "287t"}
+            {"label": "CO₂ Reduced", "value": "156T"},
+            {"label": "Reduction", "value": "22%"},
+            {"label": "Offsetting", "value": "£18K"}
         ],
         "quiz": {
-            "question": "How many properties have been optimised for energy management?",
-            "options": ["8", "10", "12", "15"],
-            "correct": "12"
+            "question": "How much did we reduce our carbon footprint?",
+            "options": ["15%", "22%", "28%", "35%"],
+            "correct": "22%"
         }
     },
     {
         "day": 11,
-        "title": "Academic Partnership",
-        "subtitle": "University of Surrey",
-        "emoji": "🎓",
-        "color": "#8b5cf6",
-        "description": "Sharing real-world sustainability insights with future hospitality leaders.",
+        "title": "Community Impact",
+        "subtitle": "Local Partnerships",
+        "emoji": "🤝",
+        "color": "#f59e0b",
+        "description": "Collaborating with local organisations to amplify our positive impact.",
         "stats": [
-            {"label": "Students", "value": "320"},
-            {"label": "Cases", "value": "15"},
-            {"label": "Lectures", "value": "6"}
+            {"label": "Partnerships", "value": "18"},
+            {"label": "Volunteers", "value": "89"},
+            {"label": "Hours Given", "value": "340"}
         ],
         "quiz": {
-            "question": "How many students were reached through our University of Surrey partnership?",
-            "options": ["200", "250", "320", "400"],
-            "correct": "320"
+            "question": "How many community partnerships did we establish?",
+            "options": ["12", "18", "24", "30"],
+            "correct": "18"
         }
     },
     {
         "day": 12,
-        "title": "Get Involved!",
-        "subtitle": "Your Sustainability Journey",
-        "emoji": "✨",
-        "color": "#ec4899",
-        "description": "Every team member can make a difference. Join our sustainability initiatives!",
+        "title": "2024 Achievement",
+        "subtitle": "Year in Review",
+        "emoji": "🎊",
+        "color": "#dc2626",
+        "description": "Celebrating a transformative year of sustainability excellence and team dedication.",
         "stats": [
-            {"label": "Ways", "value": "20+"},
-            {"label": "Training", "value": "Yes"},
-            {"label": "Recognition", "value": "✓"}
+            {"label": "Total Impact", "value": "£180K"},
+            {"label": "Initiatives", "value": "47"},
+            {"label": "Team Pride", "value": "100%"}
         ],
         "quiz": {
-            "question": "What's the best way to get involved in 2025 sustainability initiatives?",
-            "options": [
-                "Join Green Champions",
-                "Attend Lunch & Learns",
-                "Use the Marketplace",
-                "All of the above"
-            ],
-            "correct": "All of the above"
+            "question": "What was our total sustainability impact value?",
+            "options": ["£140K", "£180K", "£220K", "£250K"],
+            "correct": "£180K"
         }
     }
 ]
 
-# Google Sheets setup
 def setup_google_sheets():
     try:
-        credentials_dict = st.secrets["gcp_service_account"]
-        scope = [
-            "https://spreadsheets.google.com/feeds",
+        creds_dict = st.secrets["gcp_service_account"]
+        scopes = [
+            "https://www.googleapis.com/auth/spreadsheets",
             "https://www.googleapis.com/auth/drive"
         ]
-        credentials = Credentials.from_service_account_info(credentials_dict, scopes=scope)
-        client = gspread.authorize(credentials)
+        creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
+        client = gspread.authorize(creds)
         return client
     except Exception as e:
         return None
@@ -1051,19 +1014,18 @@ def main():
         with st.form("user_entry_form"):
             name = st.text_input("Your Name", placeholder="Enter your full name...")
             
-            # Use radio instead of selectbox for better visibility
-            st.markdown("**Your Property**")
-            property_select = st.radio(
-                "property_radio",
-                options=PROPERTIES,
-                index=None,
-                label_visibility="collapsed"
+            # Use SELECTBOX dropdown for property selection
+            property_select = st.selectbox(
+                "Your Property",
+                options=[""] + PROPERTIES,  # Add empty option as default
+                format_func=lambda x: "Select your property..." if x == "" else x,
+                index=0
             )
             
             submitted = st.form_submit_button("🎄 Start Journey", use_container_width=True, type="primary")
             
             if submitted:
-                if name and name.strip() and property_select:
+                if name and name.strip() and property_select and property_select != "":
                     st.session_state.user_name = name.strip()
                     st.session_state.user_property = property_select
                     st.rerun()
