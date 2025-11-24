@@ -865,14 +865,14 @@ ACHIEVEMENTS = [
         "color": "#059669",
         "description": "Our Green Champions network has grown exponentially, with passionate team members leading sustainability initiatives.",
         "stats": [
-            {"label": "Properties", "value": "12"},
-            {"label": "Initiatives", "value": "47"},
-            {"label": "Engagement", "value": "89%"}
+            {"label": "Properties", "value": "7"},
+            {"label": "Initiatives", "value": "209"},
+            {"label": "Number of Green Champions", "value": "9"}
         ],
         "quiz": {
             "question": "How many properties are actively participating in the Green Champions Programme?",
-            "options": ["8", "12", "15", "20"],
-            "correct": "12"
+            "options": ["8", "7", "15", "20"],
+            "correct": "7"
         }
     },
     {
@@ -881,16 +881,16 @@ ACHIEVEMENTS = [
         "subtitle": "Paper Reduction Victory",
         "emoji": "📄",
         "color": "#2563eb",
-        "description": "Through digitisation initiatives, we've dramatically reduced paper consumption while improving efficiency.",
+        "description": "Through digitisation initiatives, we've dramatically reduced paper consumption while improving efficiency. In the last 4 months:",
         "stats": [
-            {"label": "Trees Saved", "value": "234"},
-            {"label": "Digital Docs", "value": "12.5K"},
-            {"label": "Cost Savings", "value": "£18K"}
+            {"label": "Trees Saved", "value": "1"},
+            {"label": "Paper Saved", "value": "11k"},
+            {"label": "Cost Savings", "value": "£110"}
         ],
         "quiz": {
-            "question": "How many trees have we saved through our digitisation efforts?",
-            "options": ["150", "234", "300", "400"],
-            "correct": "234"
+            "question": "How much paper have we saved in the last 4 months?",
+            "options": ["11k", "6k", "3.5k", "2k"],
+            "correct": "11k"
         }
     },
     {
