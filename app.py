@@ -241,10 +241,10 @@ st.markdown("""
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     
-    /* Radio Buttons - Adaptive 2x2 Grid */
+    /* Radio Buttons - VERTICAL LIST instead of grid */
     div[data-testid="stRadio"] > div {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 0.5rem;
     }
     
@@ -252,26 +252,24 @@ st.markdown("""
         background: var(--background-color);
         border: 2px solid var(--secondary-background-color);
         border-radius: 10px;
-        padding: 0.75rem 0.4rem;
+        padding: 0.75rem 1rem;
         cursor: pointer;
         transition: all 0.2s;
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         font-weight: 500;
         color: var(--text-color);
-        text-align: center;
+        text-align: left;
         margin: 0;
-        min-height: 52px;
         display: flex;
         align-items: center;
-        justify-content: center;
         box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        line-height: 1.3;
+        line-height: 1.4;
     }
     
     div[data-testid="stRadio"] > div > label:hover {
         border-color: #16a34a;
         background: rgba(22, 163, 74, 0.1);
-        transform: translateY(-1px);
+        transform: translateX(2px);
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
@@ -280,7 +278,6 @@ st.markdown("""
         background: rgba(22, 163, 74, 0.15);
         color: #16a34a;
         font-weight: 700;
-        transform: scale(1.02);
         box-shadow: 0 3px 8px rgba(22, 163, 74, 0.3);
     }
     
@@ -304,61 +301,67 @@ st.markdown("""
         box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
     }
     
-    /* Result Box - Adaptive */
+    /* Result Box - More prominent feedback */
     .result {
-        border-radius: 10px;
-        padding: 0.6rem;
+        border-radius: 12px;
+        padding: 1rem;
         text-align: center;
-        margin-top: 0.5rem;
+        margin-top: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     
     .result-correct {
-        background: rgba(22, 163, 74, 0.15);
-        border: 2px solid #16a34a;
+        background: rgba(22, 163, 74, 0.2);
+        border: 3px solid #16a34a;
     }
     
     .result-incorrect {
-        background: rgba(251, 146, 60, 0.15);
-        border: 2px solid #fb923c;
+        background: rgba(251, 146, 60, 0.2);
+        border: 3px solid #fb923c;
     }
     
     .result-completed {
-        background: rgba(59, 130, 246, 0.15);
-        border: 2px solid #3b82f6;
+        background: rgba(59, 130, 246, 0.2);
+        border: 3px solid #3b82f6;
     }
     
     .result h4 {
-        font-size: 0.85rem;
+        font-size: 1rem;
         color: var(--text-color);
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
     }
     
-    /* Enhanced result emojis */
+    /* Enhanced result emojis - larger and more prominent */
     .result-correct h4::before {
         content: "🎉 ";
-        font-size: 1rem;
+        font-size: 1.5rem;
         filter: drop-shadow(0 2px 4px rgba(34, 197, 94, 0.4));
         animation: bounce 0.6s ease;
     }
     
     .result-incorrect h4::before {
         content: "💪 ";
-        font-size: 1rem;
+        font-size: 1.5rem;
         filter: drop-shadow(0 2px 4px rgba(251, 146, 60, 0.4));
     }
     
     .result-completed h4::before {
         content: "✅ ";
-        font-size: 1rem;
+        font-size: 1.5rem;
         filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.4));
     }
     
     .result p {
-        font-size: 0.7rem;
+        font-size: 0.85rem;
         color: var(--text-color);
-        opacity: 0.8;
-        margin: 0.15rem 0;
-        line-height: 1.3;
+        margin: 0.3rem 0;
+        line-height: 1.5;
+    }
+    
+    .result p strong {
+        font-weight: 700;
+        color: var(--text-color);
     }
     
     /* Prize Banner - Adaptive */
@@ -412,7 +415,7 @@ st.markdown("""
         padding: 0.6rem;
     }
     
-    /* Selectbox - Minimal styling, let Streamlit handle theming */
+    /* Selectbox - Fixed for dark mode visibility */
     .stSelectbox label {
         font-size: 0.75rem;
         font-weight: 600;
@@ -422,6 +425,20 @@ st.markdown("""
     .stSelectbox [data-baseweb="select"] > div {
         font-size: 0.8rem;
         padding: 0.6rem;
+    }
+    
+    /* Ensure selected value is visible in dropdown */
+    .stSelectbox [data-baseweb="select"] input {
+        color: var(--text-color) !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"] > div > div {
+        color: var(--text-color) !important;
+    }
+    
+    /* Dropdown menu options */
+    .stSelectbox li[role="option"] {
+        color: var(--text-color) !important;
     }
     
     /* Expander - Minimal styling */
@@ -1027,18 +1044,18 @@ def main():
             if result['correct']:
                 st.markdown(f"""
                 <div class="result result-correct">
-                    <h4>Correct! Well done!</h4>
-                    <p>Answer: <strong>{result['answer']}</strong></p>
-                    <p>✅ See you tomorrow for Day {current_day + 1}!</p>
+                    <h4>✓ CORRECT! Well Done! 🎉</h4>
+                    <p>Your answer <strong>"{result['answer']}"</strong> is correct!</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">✅ Day {current_day} complete! See you tomorrow for Day {current_day + 1}!</p>
                 </div>
                 """, unsafe_allow_html=True)
             else:
                 st.markdown(f"""
                 <div class="result result-incorrect">
-                    <h4>Great try!</h4>
-                    <p>Your answer: <strong>{result['answer']}</strong></p>
-                    <p>Correct: <strong>{current_achievement['quiz']['correct']}</strong></p>
-                    <p>✅ See you tomorrow for Day {current_day + 1}!</p>
+                    <h4>Not quite, but great effort! 💪</h4>
+                    <p>You answered: <strong>"{result['answer']}"</strong></p>
+                    <p>The correct answer is: <strong>"{current_achievement['quiz']['correct']}"</strong></p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">✅ Day {current_day} complete! See you tomorrow for Day {current_day + 1}!</p>
                 </div>
                 """, unsafe_allow_html=True)
     else:
