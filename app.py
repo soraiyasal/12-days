@@ -645,14 +645,14 @@ ACHIEVEMENTS = [
         "color": "#059669",
         "description": "Our Green Champions network has grown exponentially, with passionate team members leading sustainability initiatives.",
         "stats": [
-            {"label": "Properties", "value": "12"},
+            {"label": "Properties", "value": "7"},
             {"label": "Initiatives", "value": "47"},
             {"label": "Engagement", "value": "89%"}
         ],
         "quiz": {
             "question": "How many properties are actively participating in the Green Champions Programme?",
-            "options": ["8", "12", "15", "20"],
-            "correct": "12"
+            "options": ["8", "7", "15", "20"],
+            "correct": "7"
         }
     },
     {
@@ -837,7 +837,7 @@ ACHIEVEMENTS = [
     },
     {
         "day": 12,
-        "title": "2024 Achievement",
+        "title": "2025 Achievement",
         "subtitle": "Year in Review",
         "emoji": "🎊",
         "color": "#dc2626",
