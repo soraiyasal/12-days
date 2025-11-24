@@ -917,11 +917,11 @@ ACHIEVEMENTS = [
         "subtitle": "Record Performance",
         "emoji": "♻️",
         "color": "#059669",
-        "description": "Improved from 40% to 51% year-over-year through enhanced programs and team engagement.",
+        "description": "Improved from 37% to 48% YoY through enhanced programs and team engagement.",
         "stats": [
             {"label": "YoY Growth", "value": "+11%"},
-            {"label": "Recycling Rate", "value": "51%"},
-            {"label": "Waste Diverted", "value": "2.4T"}
+            {"label": "Oct Recycling Rate", "value": "51%"},
+            {"label": "Tonnes Recycled in 2025", "value": "227"}
         ],
         "quiz": {
             "question": "What was our year-over-year recycling improvement?",
@@ -935,16 +935,16 @@ ACHIEVEMENTS = [
         "subtitle": "Smart Management",
         "emoji": "⚡",
         "color": "#eab308",
-        "description": "Strategic energy management delivering significant cost savings while reducing environmental impact.",
+        "description": "Strategic energy management delivering significant cost savings while reducing environmental impact. See data compared to last year.",
         "stats": [
-            {"label": "Cost Savings", "value": "£45K"},
-            {"label": "kWh Reduced", "value": "180K"},
-            {"label": "CO₂ Saved", "value": "42T"}
+            {"label": "Cost Savings", "value": "£137K"},
+            {"label": "kWh Reduced", "value": " 1,068,745.90"},
+            {"label": "Property that Reduced the Most", "value": "CIE"}
         ],
         "quiz": {
-            "question": "How much did we save through energy efficiency?",
-            "options": ["£30K", "£45K", "£60K", "£75K"],
-            "correct": "£45K"
+            "question": "Which property saved the most energy?",
+            "options": ["CIE", "EH", "Westin", "St Albans"],
+            "correct": "CIE"
         }
     },
     {
