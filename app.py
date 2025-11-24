@@ -415,7 +415,7 @@ st.markdown("""
         padding: 0.6rem;
     }
     
-    /* Selectbox - Fixed for dark mode visibility */
+    /* Selectbox - AGGRESSIVE FIX for selected value visibility */
     .stSelectbox label {
         font-size: 0.75rem;
         font-weight: 600;
@@ -427,18 +427,53 @@ st.markdown("""
         padding: 0.6rem;
     }
     
-    /* Ensure selected value is visible in dropdown */
+    /* Force selected value to be visible - CRITICAL */
+    .stSelectbox input {
+        color: var(--text-color) !important;
+        opacity: 1 !important;
+    }
+    
     .stSelectbox [data-baseweb="select"] input {
         color: var(--text-color) !important;
+        opacity: 1 !important;
     }
     
     .stSelectbox [data-baseweb="select"] > div > div {
         color: var(--text-color) !important;
     }
     
-    /* Dropdown menu options */
+    .stSelectbox [data-baseweb="select"] span {
+        color: var(--text-color) !important;
+    }
+    
+    /* Selected value container */
+    .stSelectbox [data-baseweb="select"] [class*="singleValue"],
+    .stSelectbox [data-baseweb="select"] [class*="SingleValue"] {
+        color: var(--text-color) !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"] [class*="value"],
+    .stSelectbox [data-baseweb="select"] [class*="Value"] {
+        color: var(--text-color) !important;
+    }
+    
+    /* Dropdown menu options - CRITICAL */
+    .stSelectbox [data-baseweb="popover"] {
+        z-index: 999999 !important;
+    }
+    
     .stSelectbox li[role="option"] {
         color: var(--text-color) !important;
+        background: var(--background-color) !important;
+    }
+    
+    .stSelectbox li[role="option"]:hover {
+        background: rgba(22, 163, 74, 0.1) !important;
+    }
+    
+    .stSelectbox li[role="option"][aria-selected="true"] {
+        background: rgba(22, 163, 74, 0.15) !important;
+        font-weight: 600 !important;
     }
     
     /* Expander - Minimal styling */
@@ -1001,63 +1036,72 @@ def main():
     
     st.markdown('<div class="card">', unsafe_allow_html=True)
     
-    if not is_completed:
+    # Show quiz result if just submitted (PRIORITY CHECK)
+    if st.session_state.quiz_submitted and st.session_state.quiz_result:
         st.markdown(f"""
         <div class="quiz-title">Today's Quiz Challenge</div>
         <div class="quiz-q">{current_achievement['quiz']['question']}</div>
         """, unsafe_allow_html=True)
         
-        if not st.session_state.quiz_submitted:
-            selected = st.radio(
-                "",
-                current_achievement['quiz']['options'],
-                key=f"quiz_{current_day}",
-                label_visibility="collapsed"
-            )
-            
-            if st.button("🎯 Submit Answer", type="primary", use_container_width=True):
-                is_correct = selected == current_achievement['quiz']['correct']
-                st.session_state.quiz_result = {'answer': selected, 'correct': is_correct}
-                st.session_state.quiz_submitted = True
-                st.session_state.completed_days.append(current_day)
-                
-                try:
-                    client = setup_google_sheets()
-                    if client:
-                        data = {
-                            "name": st.session_state.user_name,
-                            "property": st.session_state.user_property,
-                            "day": current_day,
-                            "achievement": current_achievement['title'],
-                            "question": current_achievement['quiz']['question'],
-                            "selected_answer": selected,
-                            "correct_answer": current_achievement['quiz']['correct'],
-                            "is_correct": is_correct
-                        }
-                        log_to_sheets(client, data)
-                except:
-                    pass
-                
-                st.rerun()
+        result = st.session_state.quiz_result
+        if result['correct']:
+            st.markdown(f"""
+            <div class="result result-correct">
+                <h4>✓ CORRECT! Well Done! 🎉</h4>
+                <p>Your answer <strong>"{result['answer']}"</strong> is correct!</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">✅ Day {current_day} complete! See you tomorrow for Day {current_day + 1}!</p>
+            </div>
+            """, unsafe_allow_html=True)
         else:
-            result = st.session_state.quiz_result
-            if result['correct']:
-                st.markdown(f"""
-                <div class="result result-correct">
-                    <h4>✓ CORRECT! Well Done! 🎉</h4>
-                    <p>Your answer <strong>"{result['answer']}"</strong> is correct!</p>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">✅ Day {current_day} complete! See you tomorrow for Day {current_day + 1}!</p>
-                </div>
-                """, unsafe_allow_html=True)
-            else:
-                st.markdown(f"""
-                <div class="result result-incorrect">
-                    <h4>Not quite, but great effort! 💪</h4>
-                    <p>You answered: <strong>"{result['answer']}"</strong></p>
-                    <p>The correct answer is: <strong>"{current_achievement['quiz']['correct']}"</strong></p>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">✅ Day {current_day} complete! See you tomorrow for Day {current_day + 1}!</p>
-                </div>
-                """, unsafe_allow_html=True)
+            st.markdown(f"""
+            <div class="result result-incorrect">
+                <h4>Not quite, but great effort! 💪</h4>
+                <p>You answered: <strong>"{result['answer']}"</strong></p>
+                <p>The correct answer is: <strong>"{current_achievement['quiz']['correct']}"</strong></p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">✅ Day {current_day} complete! See you tomorrow for Day {current_day + 1}!</p>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    # Show quiz if not completed and not just submitted
+    elif not is_completed:
+        st.markdown(f"""
+        <div class="quiz-title">Today's Quiz Challenge</div>
+        <div class="quiz-q">{current_achievement['quiz']['question']}</div>
+        """, unsafe_allow_html=True)
+        
+        selected = st.radio(
+            "",
+            current_achievement['quiz']['options'],
+            key=f"quiz_{current_day}",
+            label_visibility="collapsed"
+        )
+        
+        if st.button("🎯 Submit Answer", type="primary", use_container_width=True):
+            is_correct = selected == current_achievement['quiz']['correct']
+            st.session_state.quiz_result = {'answer': selected, 'correct': is_correct}
+            st.session_state.quiz_submitted = True
+            st.session_state.completed_days.append(current_day)
+            
+            try:
+                client = setup_google_sheets()
+                if client:
+                    data = {
+                        "name": st.session_state.user_name,
+                        "property": st.session_state.user_property,
+                        "day": current_day,
+                        "achievement": current_achievement['title'],
+                        "question": current_achievement['quiz']['question'],
+                        "selected_answer": selected,
+                        "correct_answer": current_achievement['quiz']['correct'],
+                        "is_correct": is_correct
+                    }
+                    log_to_sheets(client, data)
+            except:
+                pass
+            
+            st.rerun()
+    
+    # Show "already completed" message
     else:
         st.markdown(f"""
         <div class="result result-completed">
