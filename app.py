@@ -17,7 +17,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Ultra-Compact White Theme CSS - FIXED FOR STREAMLIT CLOUD
+# Adaptive Theme CSS - Works with Light and Dark Mode
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -26,15 +26,7 @@ st.markdown("""
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     
-    /* White Background */
-    .stApp {
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-    }
-    
-    .main {
-        background: transparent;
-    }
-    
+    /* Let Streamlit handle the background */
     .block-container {
         padding: 0.5rem;
         max-width: 420px;
@@ -54,13 +46,13 @@ st.markdown("""
         50% { box-shadow: 0 2px 15px rgba(34, 197, 94, 0.5); }
     }
     
-    /* Top Bar - ULTRA COMPACT */
+    /* Top Bar - Adaptive */
     .top-bar {
-        background: white;
+        background: var(--background-color);
         padding: 0.4rem 0.6rem;
         border-radius: 10px;
         margin-bottom: 0.4rem;
-        border: 1px solid #e2e8f0;
+        border: 1px solid var(--secondary-background-color);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -68,14 +60,15 @@ st.markdown("""
     }
     
     .user-info h3 {
-        color: #1f2937;
+        color: var(--text-color);
         font-size: 0.8rem;
         margin: 0;
         font-weight: 600;
     }
     
     .user-info p {
-        color: #6b7280;
+        color: var(--text-color);
+        opacity: 0.7;
         font-size: 0.65rem;
         margin: 0;
     }
@@ -108,45 +101,43 @@ st.markdown("""
         }
     }
     
-    /* Cards - COMPACT */
+    /* Cards - Adaptive */
     .card {
-        background: white;
+        background: var(--background-color);
         border-radius: 12px;
-        border: 1px solid #e2e8f0;
+        border: 1px solid var(--secondary-background-color);
         padding: 0.6rem;
         margin-bottom: 0.4rem;
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     
-    /* Achievement Header - COMPACT */
+    /* Achievement Header - SOFTER COLORS with White Text */
     .ach-header {
         background: linear-gradient(135deg, var(--color1), var(--color2));
         padding: 1rem 0.6rem;
         border-radius: 12px;
         text-align: center;
         margin-bottom: 0.5rem;
-    
     }
     
     .day-badge {
-        background: rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.25);
         padding: 0.3rem 0.8rem;
         border-radius: 15px;
         font-size: 0.75rem;
         font-weight: 700;
-        color: #10b981;
+        color: white;
         display: inline-block;
         margin-bottom: 0.5rem;
         letter-spacing: 0.5px;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
     
     .ach-emoji {
         font-size: 3.5rem;
         margin: 0.5rem 0;
         animation: float 3s ease-in-out infinite;
-        filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3)) 
-                drop-shadow(0 0 25px rgba(255,255,255,0.6));
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         transform-style: preserve-3d;
         display: block;
         text-align: center;
@@ -163,32 +154,34 @@ st.markdown("""
         75% { transform: translateY(-5px) scale(1.08); }
     }
     
+    /* White text on colored backgrounds */
     .ach-title {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #10b981;
+        color: white;
         margin: 0.3rem 0;
         line-height: 1.2;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
     
     .ach-subtitle {
         font-size: 0.75rem;
-        color: #10b981;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+        color: white;
+        opacity: 0.95;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
     
-    /* Description - COMPACT */
+    /* Description - Adaptive */
     .description {
         font-size: 0.75rem;
         line-height: 1.4;
-        color: #4b5563;
+        color: var(--text-color);
         text-align: center;
         margin-bottom: 0.6rem;
         font-weight: 400;
     }
     
-    /* Stats Grid - ULTRA COMPACT */
+    /* Stats Grid - Adaptive */
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -197,8 +190,8 @@ st.markdown("""
     }
     
     .stat {
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
+        background: var(--secondary-background-color);
+        border: 1px solid var(--secondary-background-color);
         border-radius: 10px;
         padding: 0.6rem 0.3rem;
         text-align: center;
@@ -207,7 +200,7 @@ st.markdown("""
     
     .stat:hover {
         transform: translateY(-2px);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
     
     .stat-value {
@@ -219,36 +212,36 @@ st.markdown("""
     
     .stat-label {
         font-size: 0.65rem;
-        color: #6b7280;
+        color: var(--text-color);
+        opacity: 0.7;
         line-height: 1.2;
         font-weight: 500;
     }
     
-    /* Quiz - ULTRA COMPACT */
+    /* Quiz - Adaptive */
     .quiz-title {
         font-size: 0.9rem;
         font-weight: 700;
         color: #16a34a;
         text-align: center;
         margin-bottom: 0.5rem;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
     }
     
     .quiz-q {
         font-size: 0.8rem;
         font-weight: 600;
-        color: #1f2937;
-        background: #f8fafc;
+        color: var(--text-color);
+        background: var(--secondary-background-color);
         padding: 0.7rem;
         border-radius: 10px;
         text-align: center;
         margin-bottom: 0.6rem;
-        border: 1px solid #e2e8f0;
+        border: 1px solid var(--secondary-background-color);
         line-height: 1.4;
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     
-    /* Radio Buttons - COMPACT 2x2 Grid */
+    /* Radio Buttons - Adaptive 2x2 Grid */
     div[data-testid="stRadio"] > div {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -256,15 +249,15 @@ st.markdown("""
     }
     
     div[data-testid="stRadio"] > div > label {
-        background: white;
-        border: 2px solid #e5e7eb;
+        background: var(--background-color);
+        border: 2px solid var(--secondary-background-color);
         border-radius: 10px;
         padding: 0.75rem 0.4rem;
         cursor: pointer;
         transition: all 0.2s;
         font-size: 0.75rem;
         font-weight: 500;
-        color: #374151;
+        color: var(--text-color);
         text-align: center;
         margin: 0;
         min-height: 52px;
@@ -277,21 +270,21 @@ st.markdown("""
     
     div[data-testid="stRadio"] > div > label:hover {
         border-color: #16a34a;
-        background: #f0fdf4;
+        background: rgba(22, 163, 74, 0.1);
         transform: translateY(-1px);
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
     div[data-testid="stRadio"] > div > label[data-checked="true"] {
         border-color: #16a34a;
-        background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-        color: #166534;
+        background: rgba(22, 163, 74, 0.15);
+        color: #16a34a;
         font-weight: 700;
         transform: scale(1.02);
         box-shadow: 0 3px 8px rgba(22, 163, 74, 0.3);
     }
     
-    /* Button - COMPACT */
+    /* Button - Adaptive */
     .stButton > button {
         width: 100%;
         background: linear-gradient(135deg, #dc2626, #16a34a);
@@ -311,7 +304,7 @@ st.markdown("""
         box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
     }
     
-    /* Result Box - COMPACT */
+    /* Result Box - Adaptive */
     .result {
         border-radius: 10px;
         padding: 0.6rem;
@@ -320,23 +313,23 @@ st.markdown("""
     }
     
     .result-correct {
-        background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+        background: rgba(22, 163, 74, 0.15);
         border: 2px solid #16a34a;
     }
     
     .result-incorrect {
-        background: linear-gradient(135deg, #fed7aa, #fde68a);
+        background: rgba(251, 146, 60, 0.15);
         border: 2px solid #fb923c;
     }
     
     .result-completed {
-        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+        background: rgba(59, 130, 246, 0.15);
         border: 2px solid #3b82f6;
     }
     
     .result h4 {
         font-size: 0.85rem;
-        color: #1f2937;
+        color: var(--text-color);
         margin-bottom: 0.3rem;
     }
     
@@ -362,27 +355,28 @@ st.markdown("""
     
     .result p {
         font-size: 0.7rem;
-        color: #4b5563;
+        color: var(--text-color);
+        opacity: 0.8;
         margin: 0.15rem 0;
         line-height: 1.3;
     }
     
-    /* Prize Banner - COMPACT */
+    /* Prize Banner - Adaptive */
     .prize {
-        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        background: rgba(251, 191, 36, 0.2);
         border-radius: 10px;
         padding: 0.5rem 0.6rem;
         text-align: center;
         margin-bottom: 0.4rem;
-        box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
-        border: 1px solid #fbbf24;
+        box-shadow: 0 2px 8px rgba(251, 191, 36, 0.2);
+        border: 1px solid rgba(251, 191, 36, 0.4);
         position: relative;
     }
     
     .prize p {
         font-size: 0.7rem;
         font-weight: 700;
-        color: #78350f;
+        color: var(--text-color);
         margin: 0;
         line-height: 1.2;
     }
@@ -406,146 +400,43 @@ st.markdown("""
         animation: float 3s ease-in-out infinite 1.5s;
     }
     
-    /* Inputs - COMPACT - FIXED FOR CLOUD */
-    .stTextInput input {
-        background: white !important;
-        border: 2px solid #e5e7eb !important;
-        border-radius: 8px !important;
-        padding: 0.6rem !important;
-        font-size: 0.8rem !important;
-        color: #1f2937 !important;
-    }
-    
-    .stTextInput input:focus {
-        border-color: #16a34a !important;
-        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1) !important;
-    }
-    
+    /* Inputs - Let Streamlit handle most styling */
     .stTextInput label {
-        color: #374151 !important;
-        font-size: 0.75rem !important;
-        font-weight: 600 !important;
-        margin-bottom: 0.2rem !important;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
     }
     
-    /* Selectbox - COMPREHENSIVE FIX FOR STREAMLIT CLOUD */
-    /* Main container and labels */
+    .stTextInput input {
+        font-size: 0.8rem;
+        padding: 0.6rem;
+    }
+    
+    /* Selectbox - Minimal styling, let Streamlit handle theming */
     .stSelectbox label {
-        color: #374151 !important;
-        font-size: 0.75rem !important;
-        font-weight: 600 !important;
-        margin-bottom: 0.2rem !important;
-    }
-    
-    /* The select box control */
-    .stSelectbox [data-baseweb="select"] {
-        background: white !important;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
     }
     
     .stSelectbox [data-baseweb="select"] > div {
-        background: white !important;
-        border: 2px solid #e5e7eb !important;
-        border-radius: 8px !important;
-        padding: 0.6rem !important;
-        font-size: 0.8rem !important;
-        min-height: auto !important;
+        font-size: 0.8rem;
+        padding: 0.6rem;
     }
     
-    .stSelectbox [data-baseweb="select"]:focus-within > div {
-        border-color: #16a34a !important;
-        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1) !important;
-    }
-    
-    /* Selected value text */
-    .stSelectbox [data-baseweb="select"] input,
-    .stSelectbox [data-baseweb="select"] input::placeholder {
-        color: #1f2937 !important;
-        font-size: 0.8rem !important;
-    }
-    
-    /* All text in selectbox */
-    .stSelectbox div[data-baseweb="select"] span,
-    .stSelectbox div[data-baseweb="select"] div {
-        color: #1f2937 !important;
-    }
-    
-    /* Dropdown menu container */
-    .stSelectbox [data-baseweb="popover"] {
-        background: white !important;
-        z-index: 999999 !important;
-    }
-    
-    .stSelectbox [data-baseweb="menu"] {
-        background: white !important;
-        border: 1px solid #e5e7eb !important;
-        border-radius: 8px !important;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
-    }
-    
-    /* Dropdown options */
-    .stSelectbox ul[role="listbox"] {
-        background: white !important;
-        padding: 0.25rem !important;
-    }
-    
-    .stSelectbox li[role="option"] {
-        background: white !important;
-        color: #1f2937 !important;
-        font-size: 0.8rem !important;
-        padding: 0.6rem 0.75rem !important;
-        margin: 0.15rem 0 !important;
-        border-radius: 6px !important;
-        cursor: pointer !important;
-    }
-    
-    .stSelectbox li[role="option"]:hover {
-        background: #f0fdf4 !important;
-        color: #166534 !important;
-    }
-    
-    .stSelectbox li[role="option"][aria-selected="true"] {
-        background: #dcfce7 !important;
-        color: #166534 !important;
-        font-weight: 600 !important;
-    }
-    
-    /* Make sure all dropdown text is visible */
-    .stSelectbox [data-baseweb="popover"] *,
-    .stSelectbox [data-baseweb="menu"] *,
-    .stSelectbox ul *,
-    .stSelectbox li * {
-        color: #1f2937 !important;
-    }
-    
-    /* Expander - FIXED FOR CLOUD */
+    /* Expander - Minimal styling */
     .streamlit-expanderHeader {
-        background: white !important;
-        border: 1px solid #e2e8f0 !important;
-        border-radius: 8px !important;
-        color: #1f2937 !important;
-        font-size: 0.75rem !important;
-        font-weight: 600 !important;
-        padding: 0.5rem 0.75rem !important;
-    }
-    
-    .streamlit-expanderHeader:hover {
-        border-color: #cbd5e1 !important;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
     }
     
     .streamlit-expanderContent {
-        background: white !important;
-        border: 1px solid #e2e8f0 !important;
-        border-top: none !important;
-        border-radius: 0 0 8px 8px !important;
-        padding: 0.75rem !important;
+        padding: 0.75rem;
     }
     
-    /* Expander icon */
-    .streamlit-expanderHeader svg {
-        fill: #1f2937 !important;
-    }
-    
-    /* Welcome - COMPACT */
+    /* Welcome - Adaptive */
     .welcome {
         text-align: center;
         padding: 1.5rem 0.75rem;
@@ -557,21 +448,21 @@ st.markdown("""
         background: linear-gradient(135deg, #dc2626, #16a34a);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        background-clip: text;
         margin: 0.75rem 0 0.4rem 0;
     }
     
     .welcome p {
         font-size: 0.75rem;
-        color: #6b7280;
+        color: var(--text-color);
+        opacity: 0.7;
         margin-bottom: 1.5rem;
     }
     
     .welcome .emoji {
         font-size: 4rem;
         animation: float 3s ease-in-out infinite;
-        filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2)) 
-                drop-shadow(0 0 30px rgba(220, 38, 38, 0.3))
-                drop-shadow(0 0 30px rgba(22, 163, 74, 0.3));
+        filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));
         display: inline-block;
         transform-style: preserve-3d;
     }
@@ -595,7 +486,7 @@ st.markdown("""
         filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
     }
     
-    /* Celebration - COMPACT */
+    /* Celebration - Adaptive */
     .celebration {
         background: linear-gradient(135deg, #dc2626, #16a34a);
         border-radius: 12px;
@@ -649,7 +540,7 @@ st.markdown("""
         gap: 0.5rem;
     }
     
-    /* Info/Success/Error boxes - COMPACT */
+    /* Info/Success/Error boxes */
     .stAlert {
         padding: 0.4rem;
         font-size: 0.7rem;
@@ -657,30 +548,20 @@ st.markdown("""
         margin: 0.3rem 0;
     }
     
-    /* Slider - COMPACT - FIXED FOR CLOUD */
+    /* Slider */
     .stSlider {
         padding: 0.3rem 0;
     }
     
     .stSlider label {
-        color: #374151 !important;
-        font-size: 0.75rem !important;
-        font-weight: 600 !important;
+        font-size: 0.75rem;
+        font-weight: 600;
     }
     
-    .stSlider [data-baseweb="slider"] {
-        margin-top: 0.5rem;
-    }
-    
-    /* Checkbox - FIXED FOR CLOUD */
+    /* Checkbox */
     .stCheckbox label {
-        font-size: 0.75rem !important;
-        color: #374151 !important;
-        font-weight: 500 !important;
-    }
-    
-    .stCheckbox label span {
-        color: #374151 !important;
+        font-size: 0.75rem;
+        font-weight: 500;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -709,7 +590,7 @@ ACHIEVEMENTS = [
         "title": "Green Champions Programme",
         "subtitle": "Community Growth",
         "emoji": "👥",
-        "color": "#10b981",
+        "color": "#059669",
         "description": "Our Green Champions network has grown exponentially, with passionate team members leading sustainability initiatives.",
         "stats": [
             {"label": "Properties", "value": "12"},
@@ -727,7 +608,7 @@ ACHIEVEMENTS = [
         "title": "Digital Transformation",
         "subtitle": "Paper Reduction Victory",
         "emoji": "📄",
-        "color": "#3b82f6",
+        "color": "#2563eb",
         "description": "Through digitisation initiatives, we've dramatically reduced paper consumption while improving efficiency.",
         "stats": [
             {"label": "Trees Saved", "value": "234"},
@@ -763,7 +644,7 @@ ACHIEVEMENTS = [
         "title": "Recycling Revolution",
         "subtitle": "Record Performance",
         "emoji": "♻️",
-        "color": "#10b981",
+        "color": "#059669",
         "description": "Improved from 40% to 51% year-over-year through enhanced programs and team engagement.",
         "stats": [
             {"label": "YoY Growth", "value": "+11%"},
@@ -871,7 +752,7 @@ ACHIEVEMENTS = [
         "title": "Carbon Footprint",
         "subtitle": "Climate Action",
         "emoji": "🌍",
-        "color": "#10b981",
+        "color": "#059669",
         "description": "Measurable reduction in carbon emissions through comprehensive initiatives.",
         "stats": [
             {"label": "CO₂ Reduced", "value": "156T"},
