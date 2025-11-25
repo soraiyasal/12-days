@@ -12,74 +12,6 @@ import gspread
 from google.oauth2.service_account import Credentials
 import json
 
-# ============================================
-# GOOGLE SHEETS CONFIGURATION
-# ============================================
-def setup_google_sheets():
-    """Connect to Google Sheets using Streamlit secrets"""
-    try:
-        # Define the scope
-        scope = [
-            'https://www.googleapis.com/auth/spreadsheets',
-            'https://www.googleapis.com/auth/drive'
-        ]
-        
-        # Load credentials from Streamlit secrets
-        credentials_dict = st.secrets["google_credentials"]
-        
-        # Create credentials object
-        credentials = Credentials.from_service_account_info(
-            credentials_dict,
-            scopes=scope
-        )
-        
-        # Authorize and return the client
-        client = gspread.authorize(credentials)
-        return client
-    except Exception as e:
-        st.error(f"Google Sheets connection error: {str(e)}")
-        return None
-
-def log_to_sheets(client, data):
-    """Log participation data to Google Sheets"""
-    try:
-        # IMPORTANT: Replace with your actual Google Sheet URL or ID
-        # Option 1: Use the full URL (easier)
-        sheet_url = st.secrets.get("https://docs.google.com/spreadsheets/d/14gjZTmx63ffN1JZX5q8y8a9Sq6iv5ZhVnnU5fM71ujo/", "")
-        
-        # Option 2: Or use just the sheet ID (more flexible)
-        # sheet_id = st.secrets.get("sheet_id", "")
-        
-        if sheet_url:
-            spreadsheet = client.open_by_url(sheet_url)
-        else:
-            # If no URL in secrets, you'll need to add it
-            st.error("Please add 'sheet_url' to your Streamlit secrets")
-            return False
-        
-        # Get the worksheet by name (specify your tab name here)
-        # Option 1: Use a specific tab name
-        worksheet_name = st.secrets.get("worksheet_name", "12 Days")  # Default to "Sheet1"
-        worksheet = spreadsheet.worksheet(worksheet_name)
-        
-        # Option 2: Or just use the first sheet
-        # worksheet = spreadsheet.sheet1
-        
-        # Prepare row data matching your columns: Date, Name, Property
-        row_data = [
-            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),  # Date
-            data['name'],                                   # Name
-            data['property']                                # Property
-        ]
-        
-        # Append the row
-        worksheet.append_row(row_data)
-        return True
-        
-    except Exception as e:
-        st.error(f"Error logging to sheets: {str(e)}")
-        return False
-
 # Page configuration
 st.set_page_config(
     page_title="🎄 12 Days of Sustainability",
@@ -292,340 +224,641 @@ st.markdown("""
         }
     }
     
-    /* Card Design */
+    /* Cards - More prominent with shadows */
     .card {
         background: var(--background-color);
         border-radius: 16px;
+        border: 2px solid var(--secondary-background-color);
         padding: 1rem;
         margin-bottom: 0.75rem;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-        border: 2px solid var(--secondary-background-color);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.12);
     }
     
-    /* Achievement Header */
+    /* Achievement Header - More dramatic */
     .ach-header {
         background: linear-gradient(135deg, var(--color1), var(--color2));
-        padding: 1.25rem;
-        border-radius: 12px;
+        padding: 1.5rem 1rem;
+        border-radius: 16px;
         text-align: center;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         position: relative;
         overflow: hidden;
     }
     
     .ach-header::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
-        left: -100%;
+        left: -200%;
         width: 200%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
         animation: shimmer 3s infinite;
     }
     
     .day-badge {
-        display: inline-block;
         background: rgba(255,255,255,0.3);
-        color: white;
-        padding: 0.3rem 0.8rem;
+        padding: 0.5rem 1rem;
         border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: white;
+        display: inline-block;
+        margin-bottom: 0.75rem;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        border: 2px solid rgba(255,255,255,0.4);
     }
     
     .ach-emoji {
-        font-size: 3.5rem;
-        margin: 0.5rem 0;
+        font-size: 5rem;
+        margin: 1rem 0;
         animation: float 3s ease-in-out infinite;
-        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+        transform-style: preserve-3d;
+        display: block;
+        text-align: center;
+    }
+    
+    .ach-emoji:hover {
+        animation: bounce 0.6s ease;
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0) scale(1); }
+        25% { transform: translateY(-15px) scale(1.1); }
+        50% { transform: translateY(0) scale(1.05); }
+        75% { transform: translateY(-8px) scale(1.08); }
     }
     
     .ach-title {
         font-size: 1.4rem;
         font-weight: 800;
         color: white;
-        margin: 0.5rem 0 0.25rem 0;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        margin: 0.5rem 0;
+        line-height: 1.2;
+        text-shadow: 0 3px 6px rgba(0,0,0,0.4);
     }
     
     .ach-subtitle {
-        font-size: 0.9rem;
-        color: rgba(255,255,255,0.95);
+        font-size: 1rem;
+        color: white;
+        opacity: 0.95;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        font-weight: 600;
+    }
+    
+    /* Description - Larger and more readable */
+    .description {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--text-color);
+        text-align: center;
+        margin-bottom: 1rem;
         font-weight: 500;
     }
     
-    /* Description */
-    .description {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        color: var(--text-color);
-        margin-bottom: 0.75rem;
-        padding: 0.5rem 0;
-    }
-    
-    /* Stats Grid */
+    /* Stats Grid - PROMINENT BOXES with animations */
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-        gap: 0.5rem;
-        margin-top: 0.75rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        margin-bottom: 1rem;
     }
     
     .stat {
-        background: var(--secondary-background-color);
-        padding: 0.75rem;
-        border-radius: 10px;
+        background: linear-gradient(135deg, var(--secondary-background-color), var(--background-color));
+        border: 3px solid #16a34a;
+        border-radius: 16px;
+        padding: 1rem 0.5rem;
         text-align: center;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stat::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #16a34a, #22c55e, #16a34a);
+        background-size: 200% 100%;
+        animation: shimmer 2s linear infinite;
+    }
+    
+    .stat:hover {
+        transform: translateY(-4px) scale(1.03);
+        box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4);
+        border-color: #22c55e;
     }
     
     .stat:active {
-        transform: scale(0.97);
+        transform: translateY(-2px) scale(1.01);
     }
     
     .stat-value {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         font-weight: 800;
         color: #16a34a;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.3rem;
+        text-shadow: 0 2px 4px rgba(22, 163, 74, 0.2);
+        animation: pulse 2s ease-in-out infinite;
     }
     
     .stat-label {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         color: var(--text-color);
         opacity: 0.8;
-        font-weight: 500;
+        line-height: 1.3;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
-    /* Quiz Section */
+    /* Quiz - Larger and more engaging */
     .quiz-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--text-color);
-        margin-bottom: 0.75rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    
-    .quiz-title::before {
-        content: "🎯";
         font-size: 1.3rem;
+        font-weight: 800;
+        color: #16a34a;
+        text-align: center;
+        margin-bottom: 0.75rem;
+        text-shadow: 0 2px 4px rgba(22, 163, 74, 0.2);
     }
     
     .quiz-q {
-        font-size: 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-color);
+        background: var(--secondary-background-color);
+        padding: 1.25rem;
+        border-radius: 16px;
+        text-align: center;
+        margin-bottom: 1rem;
+        border: 3px solid rgba(22, 163, 74, 0.3);
+        line-height: 1.5;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    /* Radio Buttons - VERTICAL LIST with larger touch targets */
+    div[data-testid="stRadio"] > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    div[data-testid="stRadio"] > div > label {
+        background: var(--background-color);
+        border: 3px solid var(--secondary-background-color);
+        border-radius: 16px;
+        padding: 1.25rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
         font-weight: 600;
         color: var(--text-color);
-        margin-bottom: 0.75rem;
-        padding: 0.75rem;
-        background: var(--secondary-background-color);
-        border-radius: 8px;
-        border-left: 4px solid #16a34a;
+        text-align: left;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        line-height: 1.4;
+        min-height: 60px;
     }
     
-    /* Radio buttons styling */
-    .stRadio > label {
-        font-weight: 600 !important;
-        font-size: 0.95rem !important;
+    div[data-testid="stRadio"] > div > label:hover {
+        border-color: #16a34a;
+        background: rgba(22, 163, 74, 0.08);
+        transform: translateX(4px) scale(1.02);
+        box-shadow: 0 6px 16px rgba(22, 163, 74, 0.2);
     }
     
-    .stRadio > div {
-        gap: 0.5rem !important;
+    div[data-testid="stRadio"] > div > label[data-checked="true"] {
+        border-color: #16a34a;
+        background: rgba(22, 163, 74, 0.15);
+        color: #16a34a;
+        font-weight: 800;
+        box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
+        transform: scale(1.03);
     }
     
-    .stRadio > div > label {
-        background: var(--secondary-background-color) !important;
-        padding: 0.75rem 1rem !important;
-        border-radius: 8px !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-        border: 2px solid transparent !important;
+    div[data-testid="stRadio"] > div > label[data-checked="true"]::before {
+        content: "✓ ";
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
     }
     
-    .stRadio > div > label:hover {
-        border-color: #16a34a !important;
-        transform: translateX(4px);
+    /* Button - Larger and more exciting */
+    .stButton > button {
+        width: 100%;
+        background: linear-gradient(135deg, #dc2626, #16a34a);
+        color: white;
+        border: none;
+        border-radius: 16px;
+        padding: 1.25rem;
+        font-size: 1.2rem;
+        font-weight: 800;
+        box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4);
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
     }
     
-    .stRadio > div > label[data-checked="true"] {
-        background: linear-gradient(135deg, #16a34a, #15803d) !important;
-        color: white !important;
-        border-color: #16a34a !important;
-        font-weight: 700 !important;
+    .stButton > button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(34, 197, 94, 0.5);
     }
     
-    /* Result styles */
+    .stButton > button:active {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
+    }
+    
+    /* Result Box - SUPER PROMINENT with confetti effect */
     .result {
-        padding: 1rem;
-        border-radius: 10px;
-        margin-top: 0.75rem;
-        animation: pulse 0.5s ease;
+        border-radius: 16px;
+        padding: 1.5rem;
+        text-align: center;
+        margin-top: 1rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        position: relative;
+        overflow: hidden;
     }
     
-    .result h4 {
-        margin: 0 0 0.5rem 0;
-        font-size: 1.1rem;
-    }
-    
-    .result p {
-        margin: 0.25rem 0;
-        font-size: 0.95rem;
+    .result::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -200%;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        animation: shimmer 2s infinite;
     }
     
     .result-correct {
-        background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-        border: 2px solid #16a34a;
-    }
-    
-    .result-correct h4 {
-        color: #15803d;
+        background: linear-gradient(135deg, rgba(22, 163, 74, 0.25), rgba(34, 197, 94, 0.25));
+        border: 4px solid #16a34a;
+        animation: pulse 1s ease-in-out 3;
     }
     
     .result-incorrect {
-        background: linear-gradient(135deg, #fef3c7, #fde68a);
-        border: 2px solid #f59e0b;
-    }
-    
-    .result-incorrect h4 {
-        color: #d97706;
+        background: linear-gradient(135deg, rgba(251, 146, 60, 0.25), rgba(249, 115, 22, 0.25));
+        border: 4px solid #fb923c;
     }
     
     .result-completed {
-        background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-        border: 2px solid #6366f1;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(37, 99, 235, 0.25));
+        border: 4px solid #3b82f6;
     }
     
-    .result-completed h4 {
-        color: #4f46e5;
+    .result h4 {
+        font-size: 1.5rem;
+        color: var(--text-color);
+        margin-bottom: 0.75rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
-    /* Prize Banner */
+    /* Enhanced result emojis - HUGE */
+    .result-correct h4::before {
+        content: "🎉 ";
+        font-size: 2.5rem;
+        filter: drop-shadow(0 4px 8px rgba(34, 197, 94, 0.5));
+        animation: bounce 0.8s ease 3;
+        display: inline-block;
+    }
+    
+    .result-incorrect h4::before {
+        content: "💪 ";
+        font-size: 2.5rem;
+        filter: drop-shadow(0 4px 8px rgba(251, 146, 60, 0.5));
+        display: inline-block;
+    }
+    
+    .result-completed h4::before {
+        content: "✅ ";
+        font-size: 2.5rem;
+        filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.5));
+        display: inline-block;
+    }
+    
+    .result p {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        margin: 0.5rem 0;
+        line-height: 1.6;
+        font-weight: 600;
+    }
+    
+    .result p strong {
+        font-weight: 900;
+        color: var(--text-color);
+        font-size: 1.2rem;
+    }
+    
+    /* Prize Banner - EXCITING with animation */
     .prize {
-        background: linear-gradient(135deg, #fbbf24, #f59e0b);
-        color: white;
-        padding: 0.75rem;
-        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(245, 158, 11, 0.3));
+        border-radius: 16px;
+        padding: 1rem 1.25rem;
         text-align: center;
         margin-bottom: 0.75rem;
-        font-weight: 700;
-        font-size: 0.95rem;
-        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-        animation: glow 2s infinite;
+        box-shadow: 0 6px 16px rgba(251, 191, 36, 0.3);
+        border: 3px solid rgba(251, 191, 36, 0.6);
+        position: relative;
+        animation: glow 3s ease-in-out infinite;
     }
     
     .prize p {
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--text-color);
         margin: 0;
+        line-height: 1.4;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
-    /* Welcome Screen */
+    /* Enhance prize emoji - BIGGER */
+    .prize::before {
+        content: "🎁";
+        position: absolute;
+        left: 1rem;
+        font-size: 2rem;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    .prize::after {
+        content: "🎁";
+        position: absolute;
+        right: 1rem;
+        font-size: 2rem;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        animation: float 3s ease-in-out infinite 1.5s;
+    }
+    
+    /* Inputs - Larger for mobile */
+    .stTextInput label {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stTextInput input {
+        font-size: 1.1rem;
+        padding: 1rem;
+        border-radius: 12px;
+        border: 2px solid var(--secondary-background-color);
+    }
+    
+    .stTextInput input:focus {
+        border-color: #16a34a;
+        box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+    }
+    
+    /* Selectbox - AGGRESSIVE FIX for selected value visibility + larger */
+    .stSelectbox label {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stSelectbox [data-baseweb="select"] > div {
+        font-size: 1.1rem;
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    
+    /* Force selected value to be visible - CRITICAL */
+    .stSelectbox input {
+        color: var(--text-color) !important;
+        opacity: 1 !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"] input {
+        color: var(--text-color) !important;
+        opacity: 1 !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"] > div > div {
+        color: var(--text-color) !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"] span {
+        color: var(--text-color) !important;
+    }
+    
+    /* Selected value container */
+    .stSelectbox [data-baseweb="select"] [class*="singleValue"],
+    .stSelectbox [data-baseweb="select"] [class*="SingleValue"] {
+        color: var(--text-color) !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"] [class*="value"],
+    .stSelectbox [data-baseweb="select"] [class*="Value"] {
+        color: var(--text-color) !important;
+    }
+    
+    /* Dropdown menu options - CRITICAL + larger */
+    .stSelectbox [data-baseweb="popover"] {
+        z-index: 999999 !important;
+    }
+    
+    .stSelectbox li[role="option"] {
+        color: var(--text-color) !important;
+        background: var(--background-color) !important;
+        font-size: 1.1rem !important;
+        padding: 1rem !important;
+    }
+    
+    .stSelectbox li[role="option"]:hover {
+        background: rgba(22, 163, 74, 0.1) !important;
+    }
+    
+    .stSelectbox li[role="option"][aria-selected="true"] {
+        background: rgba(22, 163, 74, 0.15) !important;
+        font-weight: 700 !important;
+    }
+    
+    /* Expander - Larger */
+    .streamlit-expanderHeader {
+        font-size: 1rem;
+        font-weight: 700;
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+    }
+    
+    .streamlit-expanderContent {
+        padding: 1rem;
+    }
+    
+    /* Welcome - Larger and more exciting */
     .welcome {
         text-align: center;
         padding: 2rem 1rem;
     }
     
-    .welcome .emoji {
-        font-size: 5rem;
-        margin-bottom: 1rem;
-        animation: float 3s ease-in-out infinite;
-        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-    }
-    
     .welcome h1 {
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: var(--text-color);
-        margin-bottom: 0.5rem;
+        font-size: 2rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #dc2626, #16a34a);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 1rem 0 0.75rem 0;
+        letter-spacing: -0.5px;
     }
     
     .welcome p {
         font-size: 1rem;
         color: var(--text-color);
         opacity: 0.8;
+        margin-bottom: 2rem;
+        font-weight: 500;
+        line-height: 1.5;
     }
     
-    /* Celebration */
+    .welcome .emoji {
+        font-size: 6rem;
+        animation: float 3s ease-in-out infinite;
+        filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+        display: inline-block;
+        transform-style: preserve-3d;
+    }
+    
+    .welcome .emoji:hover {
+        animation: bounce 0.8s ease;
+    }
+    
+    /* Tree icon in top bar - larger */
+    .tree-icon {
+        font-size: 1.5rem;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+        animation: bounce 2s ease-in-out infinite;
+    }
+    
+    /* Quiz title icon enhancement */
+    .quiz-title::before {
+        content: "✨ ";
+        font-size: 1.5rem;
+        filter: drop-shadow(0 2px 4px rgba(22, 163, 74, 0.3));
+    }
+    
+    /* Prize banner emojis */
+    .prize::before,
+    .prize::after {
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    }
+    
+    /* Celebration - Larger and more exciting */
     .celebration {
-        background: linear-gradient(135deg, #fbbf24, #f59e0b, #dc2626);
-        color: white;
+        background: linear-gradient(135deg, #dc2626, #16a34a);
+        border-radius: 16px;
         padding: 1.5rem;
-        border-radius: 12px;
         text-align: center;
         margin-top: 1rem;
-        animation: pulse 2s infinite;
-        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    
+    .celebration::before {
+        content: "🎉";
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        font-size: 2.5rem;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    .celebration::after {
+        content: "🎊";
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 2.5rem;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        animation: float 3s ease-in-out infinite 1.5s;
     }
     
     .celebration h3 {
-        margin: 0 0 0.5rem 0;
         font-size: 1.5rem;
-        font-weight: 800;
+        color: white;
+        margin-bottom: 0.75rem;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        font-weight: 900;
     }
     
     .celebration p {
-        margin: 0.25rem 0;
         font-size: 1rem;
+        color: rgba(255,255,255,0.95);
+        margin: 0.5rem 0;
+        font-weight: 600;
     }
     
-    /* Button styling */
-    .stButton > button {
-        font-weight: 700 !important;
-        font-size: 1rem !important;
-        padding: 0.75rem 1.5rem !important;
-        border-radius: 10px !important;
-        transition: all 0.2s ease !important;
+    /* Form spacing */
+    .stForm {
+        margin-bottom: 0;
     }
     
-    .stButton > button:active {
-        transform: scale(0.97) !important;
+    /* Reduce all spacing */
+    div[data-testid="stVerticalBlock"] > div {
+        gap: 0.75rem;
     }
     
-    /* Form styling */
-    .stTextInput > div > div > input {
-        font-size: 1rem !important;
-        padding: 0.75rem !important;
-        border-radius: 8px !important;
+    /* Info/Success/Error boxes - larger */
+    .stAlert {
+        padding: 0.75rem;
+        font-size: 1rem;
+        border-radius: 12px;
+        margin: 0.5rem 0;
     }
     
-    .stSelectbox > div > div > select {
-        font-size: 1rem !important;
-        padding: 0.75rem !important;
-        border-radius: 8px !important;
+    /* Slider - larger */
+    .stSlider {
+        padding: 0.5rem 0;
     }
     
-    /* Tree icon */
-    .tree-icon {
-        display: inline-block;
-        animation: float 2s ease-in-out infinite;
+    .stSlider label {
+        font-size: 1rem;
+        font-weight: 700;
+    }
+    
+    /* Checkbox - larger */
+    .stCheckbox label {
+        font-size: 1rem;
+        font-weight: 600;
     }
 </style>
 """, unsafe_allow_html=True)
 
+# Configuration
+CAMPAIGN_START_DATE = datetime(2025, 12, 1)
+CAMPAIGN_END_DATE = datetime(2025, 12, 12)
+TEST_MODE_DEFAULT = True  # 🧪 Change to False for production!
+
 # Properties list
 PROPERTIES = [
-    "Camden", "St Albans", "Westin", "Canopy", "CIE", "CIV", "EH", "Head Office"
+    "Camden",
+    "St Albans",
+    "Westin",
+    "Canopy",
+    "CIE",
+    "CIV",
+    "EH",
+    "Head Office"
 ]
 
-# Session state initialization
-if 'user_name' not in st.session_state:
-    st.session_state.user_name = None
-if 'user_property' not in st.session_state:
-    st.session_state.user_property = None
-if 'completed_days' not in st.session_state:
-    st.session_state.completed_days = []
-if 'test_mode' not in st.session_state:
-    st.session_state.test_mode = False
-if 'test_day' not in st.session_state:
-    st.session_state.test_day = 1
-if 'quiz_submitted' not in st.session_state:
-    st.session_state.quiz_submitted = False
-if 'quiz_result' not in st.session_state:
-    st.session_state.quiz_result = None
-
-# [Rest of your ACHIEVEMENTS data structure goes here - keeping it as is]
+# Achievements data
 ACHIEVEMENTS = [
     {
         "day": 1,
@@ -781,11 +1014,10 @@ ACHIEVEMENTS = [
         "emoji": "📚",
         "color": "#ec4899",
         "description": "Comprehensive sustainability training empowering team members as change agents.",
-        # "stats": [
-        #     {"label": "Hours", "value": "420"},
-        #     {"label": "Trained", "value": "156"},
-        #     {"label": "Satisfaction", "value": "96%"}
-        # ],
+        "stats": [
+            {"label": "Number of Hotels Have Introduced No Bin Day in Staff Canteens", "value": "3"},
+            {"label": "Number of Sustainability", "value": "3"}
+        ],
         "quiz": {
             "question": "What everyday mindful behaviours have our team members adopted as a result of our sustainability efforts?",
             "options": ["Being more intentional about reducing and managing waste", "Sorting waste correctly and more consistently", "Encouraging others by sharing sustainability tips and knowledge", "All of the above"],
@@ -847,29 +1079,79 @@ ACHIEVEMENTS = [
 ]
 
 
+
+def setup_google_sheets():
+    try:
+        creds_dict = st.secrets["gcp_service_account"]
+        scopes = [
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/drive"
+        ]
+        creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
+        client = gspread.authorize(creds)
+        return client
+    except Exception as e:
+        return None
+
+def log_to_sheets(client, data):
+    try:
+        sheet_name = "12 Days Christmas Quiz Responses"
+        spreadsheet = client.open(sheet_name)
+        worksheet = spreadsheet.sheet1
+        
+        row = [
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            data["name"],
+            data["property"],
+            data["day"],
+            data["achievement"],
+            data["question"],
+            data["selected_answer"],
+            data["correct_answer"],
+            "Yes" if data["is_correct"] else "No",
+            datetime.now().strftime("%Y-%m-%d")
+        ]
+        
+        worksheet.append_row(row)
+        return True
+    except Exception as e:
+        return False
+
 def calculate_current_day():
-    """Calculate which day of the campaign we're on (Dec 1-12, 2025)"""
     if st.session_state.test_mode:
         return st.session_state.test_day
     
-    # Campaign runs December 1-12, 2025
-    start_date = datetime(2025, 12, 1)
-    end_date = datetime(2025, 12, 12, 23, 59, 59)
-    now = datetime.now()
+    today = datetime.now()
+    if today < CAMPAIGN_START_DATE:
+        return 1
+    if today > CAMPAIGN_END_DATE:
+        return 12
     
-    if now < start_date:
-        return 1  # Before campaign starts, show Day 1
-    elif now > end_date:
-        return 12  # After campaign ends, show Day 12
-    else:
-        # During campaign, calculate current day
-        delta = now - start_date
-        return min(delta.days + 1, 12)
+    days_since_start = (today - CAMPAIGN_START_DATE).days
+    return min(max(days_since_start + 1, 1), 12)
+
+def init_session_state():
+    if 'user_name' not in st.session_state:
+        st.session_state.user_name = None
+    if 'user_property' not in st.session_state:
+        st.session_state.user_property = None
+    if 'completed_days' not in st.session_state:
+        st.session_state.completed_days = []
+    if 'quiz_submitted' not in st.session_state:
+        st.session_state.quiz_submitted = False
+    if 'quiz_result' not in st.session_state:
+        st.session_state.quiz_result = None
+    if 'test_day' not in st.session_state:
+        st.session_state.test_day = 1
+    if 'test_mode' not in st.session_state:
+        st.session_state.test_mode = TEST_MODE_DEFAULT
 
 def main():
-    # Snowflakes animation
+    init_session_state()
+    
+    # Add falling snowflakes background ❄️
     st.markdown("""
-    <div class="snowflakes">
+    <div class="snowflakes" aria-hidden="true">
         <div class="snowflake">❄</div>
         <div class="snowflake">❅</div>
         <div class="snowflake">❆</div>
@@ -930,20 +1212,6 @@ def main():
                 if name and name.strip() and property_select and property_select != "":
                     st.session_state.user_name = name.strip()
                     st.session_state.user_property = property_select
-                    
-                    # Log to Google Sheets
-                    try:
-                        client = setup_google_sheets()
-                        if client:
-                            data = {
-                                "name": st.session_state.user_name,
-                                "property": st.session_state.user_property
-                            }
-                            log_to_sheets(client, data)
-                    except Exception as e:
-                        # Don't block the app if logging fails
-                        st.warning(f"Could not log participation: {str(e)}")
-                    
                     st.rerun()
                 else:
                     st.error("⚠️ Please enter your name and select your property")
@@ -1068,26 +1336,25 @@ def main():
                 st.session_state.quiz_result = {'answer': selected, 'correct': is_correct}
                 st.session_state.quiz_submitted = True
                 st.session_state.completed_days.append(current_day)
-                
-                # Log to Google Sheets
-                try:
-                    client = setup_google_sheets()
-                    if client:
-                        data = {
-                            "name": st.session_state.user_name,
-                            "property": st.session_state.user_property,
-                            "day": current_day,
-                            "achievement": current_achievement['title'],
-                            "question": current_achievement['quiz']['question'],
-                            "selected_answer": selected,
-                            "correct_answer": current_achievement['quiz']['correct'],
-                            "is_correct": is_correct
-                        }
-                        log_to_sheets(client, data)
-                except:
-                    pass  # Don't block user experience if logging fails
-                
-                st.rerun()
+            
+            try:
+                client = setup_google_sheets()
+                if client:
+                    data = {
+                        "name": st.session_state.user_name,
+                        "property": st.session_state.user_property,
+                        "day": current_day,
+                        "achievement": current_achievement['title'],
+                        "question": current_achievement['quiz']['question'],
+                        "selected_answer": selected,
+                        "correct_answer": current_achievement['quiz']['correct'],
+                        "is_correct": is_correct
+                    }
+                    log_to_sheets(client, data)
+            except:
+                pass
+            
+            st.rerun()
     
     # Show "already completed" message
     else:
@@ -1116,3 +1383,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+    
