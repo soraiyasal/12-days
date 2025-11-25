@@ -1016,7 +1016,7 @@ ACHIEVEMENTS = [
         "description": "Comprehensive sustainability training empowering team members as change agents.",
         "stats": [
             {"label": "Number of Hotels Have Introduced No Bin Day in Staff Canteens", "value": "3"},
-            {"label": "Number of Sustainability", "value": "3"}
+            {"label": "Number of Sustainability Courses", "value": "3"}
         ],
         "quiz": {
             "question": "What everyday mindful behaviours have our team members adopted as a result of our sustainability efforts?",
