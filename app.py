@@ -11,7 +11,7 @@ import json
 
 # Page configuration
 st.set_page_config(
-    page_title="🎄 12 Days of Sustainability",
+    page_title="12 Days of Sustainability",
     page_icon="🎄",
     layout="centered",
     initial_sidebar_state="collapsed"
