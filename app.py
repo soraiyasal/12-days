@@ -1,3 +1,6 @@
+
+
+
 """
 🎄 12 DAYS OF SUSTAINABILITY - Interactive Campaign App
 """
@@ -1027,14 +1030,12 @@ ACHIEVEMENTS = [
         "color": "#059669",
         "description": "Measurable reduction in carbon emissions through comprehensive initiatives.",
         "stats": [
-            {"label": "CO₂ Reduced", "value": "156T"},
-            {"label": "Reduction", "value": "22%"},
-            {"label": "Offsetting", "value": "£18K"}
-        ],
+            {"label": "CO₂ Reduced", "value": "142.26T"},
+            {"label": "Reduction", "value": "6%"}        ],
         "quiz": {
             "question": "How much did we reduce our carbon footprint?",
-            "options": ["15%", "22%", "28%", "35%"],
-            "correct": "22%"
+            "options": ["0%", "2%", "12%", "6%"],
+            "correct": "6%"
         }
     },
     {
@@ -1045,35 +1046,36 @@ ACHIEVEMENTS = [
         "color": "#f59e0b",
         "description": "Collaborating with local organisations to amplify our positive impact.",
         "stats": [
-            {"label": "Partnerships", "value": "18"},
-            {"label": "Volunteers", "value": "89"},
-            {"label": "Hours Given", "value": "340"}
+            {"label": "Partnerships", "value": "30"},
+            {"label": "Money Raised", "value": "£75k"},
+            {"label": "Hours Given", "value": "94"}
         ],
         "quiz": {
             "question": "How many community partnerships did we establish?",
             "options": ["12", "18", "24", "30"],
-            "correct": "18"
+            "correct": "30"
         }
     },
     {
         "day": 12,
-        "title": "2024 Achievement",
+        "title": "2025 Achievement",
         "subtitle": "Year in Review",
         "emoji": "🎊",
         "color": "#dc2626",
         "description": "Celebrating a transformative year of sustainability excellence and team dedication.",
         "stats": [
-            {"label": "Total Impact", "value": "£180K"},
-            {"label": "Initiatives", "value": "47"},
+            {"label": "Total Impact", "value": "£75k"},
+            {"label": "Initiatives", "value": "420"},
             {"label": "Team Pride", "value": "100%"}
         ],
         "quiz": {
-            "question": "What was our total sustainability impact value?",
-            "options": ["£140K", "£180K", "£220K", "£250K"],
-            "correct": "£180K"
+            "question": "How much money did we raise for charity in 2025?",
+            "options": ["£75K", "£18K", "£42K", "£53K"],
+            "correct": "£75K"
         }
     }
 ]
+
 
 def setup_google_sheets():
     try:
@@ -1318,15 +1320,19 @@ def main():
         selected = st.radio(
             "",
             current_achievement['quiz']['options'],
+            index=None,  # No pre-selection - user must choose!
             key=f"quiz_{current_day}",
             label_visibility="collapsed"
         )
         
         if st.button("🎯 Submit Answer", type="primary", use_container_width=True):
-            is_correct = selected == current_achievement['quiz']['correct']
-            st.session_state.quiz_result = {'answer': selected, 'correct': is_correct}
-            st.session_state.quiz_submitted = True
-            st.session_state.completed_days.append(current_day)
+            if selected is None:
+                st.error("⚠️ Please select an answer before submitting!")
+            else:
+                is_correct = selected == current_achievement['quiz']['correct']
+                st.session_state.quiz_result = {'answer': selected, 'correct': is_correct}
+                st.session_state.quiz_submitted = True
+                st.session_state.completed_days.append(current_day)
             
             try:
                 client = setup_google_sheets()
