@@ -1,7 +1,7 @@
 
 
 
- """
+"""
 🎄 12 DAYS OF SUSTAINABILITY - Interactive Campaign App
 """
 
