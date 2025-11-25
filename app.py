@@ -1,6 +1,3 @@
-
-
-
 """
 🎄 12 DAYS OF SUSTAINABILITY - Interactive Campaign App
 """
@@ -688,6 +685,13 @@ st.markdown("""
         font-weight: 700 !important;
     }
     
+    /* Additional selectbox select element styling */
+    .stSelectbox > div > div > select {
+        font-size: 1rem !important;
+        padding: 0.75rem !important;
+        border-radius: 8px !important;
+    }
+    
     /* Expander - Larger */
     .streamlit-expanderHeader {
         font-size: 1rem;
@@ -1093,14 +1097,61 @@ def setup_google_sheets():
     except Exception as e:
         return None
 
-def log_to_sheets(client, data):
+def log_user_registration(client, name, property_name):
+    """Log user registration to the '12 Days' sheet with Date, name, property"""
     try:
-        sheet_name = "12 Days Christmas Quiz Responses"
-        spreadsheet = client.open(sheet_name)
-        worksheet = spreadsheet.sheet1
+        # Open the spreadsheet by ID from the URL
+        spreadsheet_id = "14gjZTmx63ffN1JZX5q8y8a9Sq6iv5ZhVnnU5fM71ujo"
+        spreadsheet = client.open_by_key(spreadsheet_id)
         
+        # Get the "12 Days" worksheet
+        worksheet = spreadsheet.worksheet("12 Days")
+        
+        # Prepare the row: Date, name, property
         row = [
-            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            datetime.now().strftime("%Y-%m-%d"),  # Date in YYYY-MM-DD format
+            name,
+            property_name
+        ]
+        
+        # Append the row to the sheet
+        worksheet.append_row(row)
+        return True
+    except Exception as e:
+        st.error(f"Error logging to Google Sheets: {str(e)}")
+        return False
+
+def log_to_sheets(client, data):
+    """Log quiz responses to the 'Quiz Responses' tab"""
+    try:
+        # Open the spreadsheet by ID
+        spreadsheet_id = "14gjZTmx63ffN1JZX5q8y8a9Sq6iv5ZhVnnU5fM71ujo"
+        spreadsheet = client.open_by_key(spreadsheet_id)
+        
+        # Try to get or create the "Quiz Responses" worksheet
+        try:
+            worksheet = spreadsheet.worksheet("Quiz Responses")
+        except:
+            # If worksheet doesn't exist, create it with headers
+            worksheet = spreadsheet.add_worksheet(title="Quiz Responses", rows="1000", cols="10")
+            headers = [
+                "Timestamp",
+                "Date", 
+                "Name",
+                "Property",
+                "Day",
+                "Achievement",
+                "Question",
+                "Their Answer",
+                "Correct Answer",
+                "Result"
+            ]
+            worksheet.append_row(headers)
+        
+        # Prepare the row with quiz response data
+        row = [
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),  # Timestamp
+            datetime.now().strftime("%Y-%m-%d"),            # Date
             data["name"],
             data["property"],
             data["day"],
@@ -1108,13 +1159,13 @@ def log_to_sheets(client, data):
             data["question"],
             data["selected_answer"],
             data["correct_answer"],
-            "Yes" if data["is_correct"] else "No",
-            datetime.now().strftime("%Y-%m-%d")
+            "Correct" if data["is_correct"] else "Incorrect"
         ]
         
         worksheet.append_row(row)
         return True
     except Exception as e:
+        # Log error but don't crash the app
         return False
 
 def calculate_current_day():
@@ -1212,6 +1263,15 @@ def main():
                 if name and name.strip() and property_select and property_select != "":
                     st.session_state.user_name = name.strip()
                     st.session_state.user_property = property_select
+                    
+                    # Log user registration to Google Sheets
+                    try:
+                        client = setup_google_sheets()
+                        if client:
+                            log_user_registration(client, name.strip(), property_select)
+                    except Exception as e:
+                        pass  # Continue even if logging fails
+                    
                     st.rerun()
                 else:
                     st.error("⚠️ Please enter your name and select your property")
@@ -1336,25 +1396,26 @@ def main():
                 st.session_state.quiz_result = {'answer': selected, 'correct': is_correct}
                 st.session_state.quiz_submitted = True
                 st.session_state.completed_days.append(current_day)
-            
-            try:
-                client = setup_google_sheets()
-                if client:
-                    data = {
-                        "name": st.session_state.user_name,
-                        "property": st.session_state.user_property,
-                        "day": current_day,
-                        "achievement": current_achievement['title'],
-                        "question": current_achievement['quiz']['question'],
-                        "selected_answer": selected,
-                        "correct_answer": current_achievement['quiz']['correct'],
-                        "is_correct": is_correct
-                    }
-                    log_to_sheets(client, data)
-            except:
-                pass
-            
-            st.rerun()
+                
+                # Log quiz response to Google Sheets
+                try:
+                    client = setup_google_sheets()
+                    if client:
+                        data = {
+                            "name": st.session_state.user_name,
+                            "property": st.session_state.user_property,
+                            "day": current_day,
+                            "achievement": current_achievement['title'],
+                            "question": current_achievement['quiz']['question'],
+                            "selected_answer": selected,
+                            "correct_answer": current_achievement['quiz']['correct'],
+                            "is_correct": is_correct
+                        }
+                        log_to_sheets(client, data)
+                except:
+                    pass  # Continue even if logging fails
+                
+                st.rerun()
     
     # Show "already completed" message
     else:
@@ -1383,8 +1444,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-    
