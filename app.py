@@ -621,20 +621,26 @@ st.markdown("""
         box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
     }
     
-    /* Selectbox - AGGRESSIVE FIX for selected value visibility + larger */
+    /* Selectbox - ULTRA AGGRESSIVE FIX for dark mode visibility */
     .stSelectbox label {
         font-size: 1rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
+        color: var(--text-color) !important;
     }
     
     .stSelectbox [data-baseweb="select"] > div {
         font-size: 1.1rem;
         padding: 1rem;
         border-radius: 12px;
+        background-color: var(--secondary-background-color) !important;
     }
     
-    /* Force selected value to be visible - CRITICAL */
+    /* NUCLEAR OPTION - Force ALL text in selectbox to be visible */
+    .stSelectbox * {
+        color: var(--text-color) !important;
+    }
+    
     .stSelectbox input {
         color: var(--text-color) !important;
         opacity: 1 !important;
@@ -653,14 +659,36 @@ st.markdown("""
         color: var(--text-color) !important;
     }
     
-    /* Selected value container */
+    /* Selected value container - ALL VARIATIONS */
     .stSelectbox [data-baseweb="select"] [class*="singleValue"],
-    .stSelectbox [data-baseweb="select"] [class*="SingleValue"] {
+    .stSelectbox [data-baseweb="select"] [class*="SingleValue"],
+    .stSelectbox [data-baseweb="select"] [class*="single-value"],
+    .stSelectbox [data-baseweb="select"] [class*="placeholder"] {
         color: var(--text-color) !important;
     }
     
     .stSelectbox [data-baseweb="select"] [class*="value"],
     .stSelectbox [data-baseweb="select"] [class*="Value"] {
+        color: var(--text-color) !important;
+    }
+    
+    /* Control container */
+    .stSelectbox [data-baseweb="select"] [class*="control"] {
+        background-color: var(--secondary-background-color) !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"] [class*="control"] * {
+        color: var(--text-color) !important;
+    }
+    
+    /* Value container - the actual displayed value */
+    .stSelectbox [data-baseweb="select"] [class*="valueContainer"],
+    .stSelectbox [data-baseweb="select"] [class*="value-container"] {
+        color: var(--text-color) !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"] [class*="valueContainer"] *,
+    .stSelectbox [data-baseweb="select"] [class*="value-container"] * {
         color: var(--text-color) !important;
     }
     
@@ -690,6 +718,12 @@ st.markdown("""
         font-size: 1rem !important;
         padding: 0.75rem !important;
         border-radius: 8px !important;
+        color: var(--text-color) !important;
+    }
+    
+    .stSelectbox > div > div > select option {
+        color: var(--text-color) !important;
+        background: var(--background-color) !important;
     }
     
     /* Expander - Larger */
