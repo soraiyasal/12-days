@@ -1624,46 +1624,67 @@ st.markdown("""
         z-index: 10;
     }
     
-    /* FIX SELECTBOX READABILITY - for property selection */
-    /* Target the main selectbox container */
-    div[data-baseweb="select"] > div {
-        background-color: var(--background-color) !important;
-        color: var(--text-color) !important;
-    }
-
-    div[data-baseweb="select"] > div:hover {
-        border-color: #22c55e !important;
-    }
-
-    /* Target the selected value display */
-    div[data-baseweb="select"] div[class*="singleValue"] {
+    /* FIX SELECTBOX READABILITY - Aggressive targeting for dark mode */
+    /* Target all selectbox text elements */
+    [data-baseweb="select"] {
         color: var(--text-color) !important;
     }
     
-    /* Target the placeholder text */
-    div[data-baseweb="select"] div[class*="placeholder"] {
+    [data-baseweb="select"] > div {
+        background-color: var(--background-color) !important;
+    }
+    
+    /* The actual selected value display - this is the key element */
+    [data-baseweb="select"] [class*="ValueContainer"] {
+        color: var(--text-color) !important;
+    }
+    
+    [data-baseweb="select"] [class*="SingleValue"] {
+        color: var(--text-color) !important;
+    }
+    
+    /* Input field */
+    [data-baseweb="select"] [class*="Input"] {
+        color: var(--text-color) !important;
+    }
+    
+    /* Placeholder */
+    [data-baseweb="select"] [class*="Placeholder"] {
         color: var(--text-color) !important;
         opacity: 0.6;
     }
 
+    /* Hover state */
+    [data-baseweb="select"] > div:hover {
+        border-color: #22c55e !important;
+    }
+
+    /* Dropdown menu */
+    [data-baseweb="select"] [role="listbox"] {
+        background-color: var(--background-color) !important;
+    }
+    
+    /* Dropdown options */
+    [data-baseweb="select"] [role="option"] {
+        color: var(--text-color) !important;
+        background-color: var(--background-color) !important;
+    }
+    
     /* Selected option in dropdown */
     [data-baseweb="select"] [role="option"][aria-selected="true"] {
         background-color: rgba(34, 197, 94, 0.2) !important;
         color: var(--text-color) !important;
     }
-
-    /* Input text in selectbox */
+    
+    /* Hover over options */
+    [data-baseweb="select"] [role="option"]:hover {
+        background-color: rgba(34, 197, 94, 0.1) !important;
+    }
+    
+    /* Nuclear option - force everything inside selectbox */
+    [data-baseweb="select"] div,
+    [data-baseweb="select"] span,
     [data-baseweb="select"] input {
-        color: var(--text-color) !important;
-    }
-    
-    /* Dropdown menu items */
-    [data-baseweb="select"] [role="option"] {
-        color: var(--text-color) !important;
-    }
-    
-    /* Force all text inside selectbox to be visible */
-    [data-baseweb="select"] * {
         color: var(--text-color) !important;
     }
     
@@ -2916,20 +2937,32 @@ def main():
         
         result = st.session_state.quiz_result
         if result['correct']:
+            # Different message for Day 12
+            if current_day == 12:
+                completion_msg = "🎉 You've completed all 12 Days of Sustainability!"
+            else:
+                completion_msg = f"See you tomorrow for Day {current_day + 1}!"
+            
             st.markdown(f"""
             <div class="result result-correct">
                 <h4>✓ CORRECT! Well Done! 🎉</h4>
                 <p>Your answer <strong>"{result['answer']}"</strong> is correct!</p>
-                <p style="margin-top: 0.5rem; font-size: 0.9rem;">✅ Day {current_day} complete! See you tomorrow for Day {current_day + 1}!</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">✅ Day {current_day} complete! {completion_msg}</p>
             </div>
             """, unsafe_allow_html=True)
         else:
+            # Different message for Day 12
+            if current_day == 12:
+                completion_msg = "🎉 You've completed all 12 Days of Sustainability!"
+            else:
+                completion_msg = f"See you tomorrow for Day {current_day + 1}!"
+            
             st.markdown(f"""
             <div class="result result-incorrect">
                 <h4>Not quite, but great effort! 💪</h4>
                 <p>You answered: <strong>"{result['answer']}"</strong></p>
                 <p>The correct answer is: <strong>"{current_achievement['quiz']['correct']}"</strong></p>
-                <p style="margin-top: 0.5rem; font-size: 0.9rem;">✅ Day {current_day} complete! See you tomorrow for Day {current_day + 1}!</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">✅ Day {current_day} complete! {completion_msg}</p>
             </div>
             """, unsafe_allow_html=True)
     
@@ -2979,13 +3012,22 @@ def main():
     
     # Show "already completed" message
     else:
-        st.markdown(f"""
-        <div class="result result-completed">
-            <h4>Day {current_day} Complete!</h4>
-            <p>You've finished today's quiz.</p>
-            <p>Come back tomorrow for Day {current_day + 1}!</p>
-        </div>
-        """, unsafe_allow_html=True)
+        # Don't say "come back tomorrow" on Day 12
+        if current_day < 12:
+            st.markdown(f"""
+            <div class="result result-completed">
+                <h4>Day {current_day} Complete!</h4>
+                <p>You've finished today's quiz.</p>
+                <p>Come back tomorrow for Day {current_day + 1}!</p>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown(f"""
+            <div class="result result-completed">
+                <h4>Day {current_day} Complete!</h4>
+                <p>You've finished today's quiz.</p>
+            </div>
+            """, unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
     
