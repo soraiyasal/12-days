@@ -2690,7 +2690,7 @@ def calculate_current_day():
     
     today = datetime.now()
     if today < CAMPAIGN_START_DATE:
-        return 1
+        return None  # Campaign hasn't started yet
     if today > CAMPAIGN_END_DATE:
         return 12
     
@@ -2785,6 +2785,26 @@ def main():
     
     # Main App
     current_day = calculate_current_day()
+    
+    # Check if campaign hasn't started yet
+    if current_day is None:
+        st.markdown("""
+        <div class="card" style="text-align: center; padding: 2rem;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎄</div>
+            <h2 style="color: var(--text-color); margin-bottom: 1rem;">Coming Soon!</h2>
+            <p style="color: var(--text-color); font-size: 1.1rem; margin-bottom: 0.5rem;">
+                The 12 Days of Sustainability campaign starts on:
+            </p>
+            <p style="color: #22c55e; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">
+                December 1, 2025
+            </p>
+            <p style="color: var(--text-color); opacity: 0.8;">
+                Check back on December 1st to begin your sustainability journey!
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        return
+    
     current_achievement = next((a for a in ACHIEVEMENTS if a["day"] == current_day), None)
     
     if not current_achievement:
