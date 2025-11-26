@@ -1624,41 +1624,6 @@ st.markdown("""
         z-index: 10;
     }
     
-    /* FIX SELECTBOX TEXT VISIBILITY - Works in both light and dark mode */
-    /* Use Streamlit's theme variables instead of hardcoded colors */
-    
-    /* Target the selected value text */
-    [data-baseweb="select"] [class*="singleValue"] {
-        color: var(--text-color) !important;
-    }
-    
-    /* Target the placeholder text */
-    [data-baseweb="select"] [class*="placeholder"] {
-        color: var(--text-color) !important;
-        opacity: 0.7;
-    }
-    
-    /* Target by nested div structure as fallback */
-    [data-baseweb="select"] > div > div > div {
-        color: var(--text-color) !important;
-    }
-    
-    /* Dropdown options */
-    [data-baseweb="select"] [role="option"] {
-        color: var(--text-color) !important;
-        background-color: var(--background-color) !important;
-    }
-    
-    /* Selected option in dropdown */
-    [data-baseweb="select"] [role="option"][aria-selected="true"] {
-        background-color: rgba(34, 197, 94, 0.2) !important;
-    }
-    
-    /* Dropdown container */
-    [data-baseweb="select"] [role="listbox"] {
-        background-color: var(--background-color) !important;
-    }
-    
     /* Animations */
     @keyframes float {
         0%, 100% { transform: translateY(0); }
@@ -2910,7 +2875,7 @@ def main():
         if result['correct']:
             # Different message for Day 12
             if current_day == 12:
-                completion_msg = "🎉 You've completed all 12 Days of Sustainability! We will be awarding an additional prize to the team member who completed all 12 days and achieved the highest score!"
+                completion_msg = "🎉 You've completed all 12 Days of Sustainability!"
             else:
                 completion_msg = f"See you tomorrow for Day {current_day + 1}!"
             
