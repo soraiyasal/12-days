@@ -2363,7 +2363,7 @@ st.markdown("""
 # Configuration
 CAMPAIGN_START_DATE = datetime(2025, 12, 1)
 CAMPAIGN_END_DATE = datetime(2025, 12, 12)
-TEST_MODE_DEFAULT = False  # 🧪 Change to False for production!
+TEST_MODE_DEFAULT = False  # Production mode - app will go live on Dec 1, 2025
 
 # Properties list
 PROPERTIES = [
@@ -2752,15 +2752,6 @@ def main():
         </div>
         """, unsafe_allow_html=True)
         
-        # Test mode - collapsed by default
-        with st.expander("🧪 Testing Mode", expanded=False):
-            test_mode = st.checkbox("Enable Testing Mode", value=st.session_state.test_mode)
-            st.session_state.test_mode = test_mode
-            
-            if st.session_state.test_mode:
-                test_day = st.slider("Day", 1, 12, st.session_state.test_day)
-                st.session_state.test_day = test_day
-        
         # Name and Property Form
         with st.form("user_entry_form"):
             name = st.text_input("Your Name", placeholder="Enter your full name...")
@@ -2811,21 +2802,6 @@ def main():
     </div>
     """, unsafe_allow_html=True)
     
-    # Settings - collapsed
-    with st.expander("⚙️ Settings", expanded=False):
-        test_toggle = st.checkbox("Testing Mode", value=st.session_state.test_mode)
-        if test_toggle != st.session_state.test_mode:
-            st.session_state.test_mode = test_toggle
-            st.rerun()
-        
-        if st.session_state.test_mode:
-            test_day = st.slider("Day", 1, 12, st.session_state.test_day)
-            if test_day != st.session_state.test_day:
-                st.session_state.test_day = test_day
-                st.session_state.quiz_submitted = False
-                st.session_state.quiz_result = None
-                st.rerun()
-    
     # Prize Banner
     st.markdown("""
     <div class="prize">
@@ -2872,7 +2848,7 @@ def main():
         if result['correct']:
             # Different message for Day 12
             if current_day == 12:
-                completion_msg = "🎉 You've completed all 12 Days of Sustainability! We will be awarding an additional prize to the team member who completed all 12 days and achieved the highest score!"
+                completion_msg = "🎉 You've completed all 12 Days of Sustainability!"
             else:
                 completion_msg = f"See you tomorrow for Day {current_day + 1}!"
             
