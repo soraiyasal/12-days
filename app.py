@@ -2363,7 +2363,7 @@ st.markdown("""
 # Configuration
 CAMPAIGN_START_DATE = datetime(2025, 12, 1)
 CAMPAIGN_END_DATE = datetime(2025, 12, 12)
-TEST_MODE_DEFAULT = True  # 🧪 Change to False for production!
+TEST_MODE_DEFAULT = False  # 🧪 Change to False for production!
 
 # Properties list
 PROPERTIES = [
