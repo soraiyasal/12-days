@@ -1625,6 +1625,7 @@ st.markdown("""
     }
     
     /* FIX SELECTBOX READABILITY - for property selection */
+    /* Target the main selectbox container */
     div[data-baseweb="select"] > div {
         background-color: var(--background-color) !important;
         color: var(--text-color) !important;
@@ -1632,6 +1633,17 @@ st.markdown("""
 
     div[data-baseweb="select"] > div:hover {
         border-color: #22c55e !important;
+    }
+
+    /* Target the selected value display */
+    div[data-baseweb="select"] div[class*="singleValue"] {
+        color: var(--text-color) !important;
+    }
+    
+    /* Target the placeholder text */
+    div[data-baseweb="select"] div[class*="placeholder"] {
+        color: var(--text-color) !important;
+        opacity: 0.6;
     }
 
     /* Selected option in dropdown */
@@ -1647,6 +1659,11 @@ st.markdown("""
     
     /* Dropdown menu items */
     [data-baseweb="select"] [role="option"] {
+        color: var(--text-color) !important;
+    }
+    
+    /* Force all text inside selectbox to be visible */
+    [data-baseweb="select"] * {
         color: var(--text-color) !important;
     }
     
