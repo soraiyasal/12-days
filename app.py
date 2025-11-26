@@ -2752,7 +2752,31 @@ def main():
         </div>
         """, unsafe_allow_html=True)
         
-        # Name and Property Form
+        # Check if campaign has started
+        today = datetime.now()
+        if today < CAMPAIGN_START_DATE:
+            # Show coming soon message - no form access
+            st.markdown("""
+            <div class="card" style="text-align: center; padding: 2rem; margin-top: 1rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🎄</div>
+                <h2 style="color: var(--text-color); margin-bottom: 1rem;">Coming Soon!</h2>
+                <p style="color: var(--text-color); font-size: 1.1rem; margin-bottom: 0.5rem;">
+                    The 12 Days of Sustainability campaign starts on:
+                </p>
+                <p style="color: #22c55e; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">
+                    December 1, 2025
+                </p>
+                <p style="color: var(--text-color); opacity: 0.8; margin-bottom: 0.5rem;">
+                    Check back on December 1st to begin your sustainability journey!
+                </p>
+                <p style="color: var(--text-color); opacity: 0.6; font-size: 0.9rem;">
+                    🎁 Complete all 12 days to win a £25 Amazon Gift Card!
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            return
+        
+        # Name and Property Form (only shown on/after Dec 1)
         with st.form("user_entry_form"):
             name = st.text_input("Your Name", placeholder="Enter your full name...")
             
@@ -2786,23 +2810,9 @@ def main():
     # Main App
     current_day = calculate_current_day()
     
-    # Check if campaign hasn't started yet
+    # This should not happen since we check before login, but just in case
     if current_day is None:
-        st.markdown("""
-        <div class="card" style="text-align: center; padding: 2rem;">
-            <div style="font-size: 4rem; margin-bottom: 1rem;">🎄</div>
-            <h2 style="color: var(--text-color); margin-bottom: 1rem;">Coming Soon!</h2>
-            <p style="color: var(--text-color); font-size: 1.1rem; margin-bottom: 0.5rem;">
-                The 12 Days of Sustainability campaign starts on:
-            </p>
-            <p style="color: #22c55e; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">
-                December 1, 2025
-            </p>
-            <p style="color: var(--text-color); opacity: 0.8;">
-                Check back on December 1st to begin your sustainability journey!
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.error("Campaign hasn't started yet. Please check back on December 1, 2025.")
         return
     
     current_achievement = next((a for a in ACHIEVEMENTS if a["day"] == current_day), None)
