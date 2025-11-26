@@ -2872,7 +2872,7 @@ def main():
         if result['correct']:
             # Different message for Day 12
             if current_day == 12:
-                completion_msg = "🎉 You've completed all 12 Days of Sustainability!"
+                completion_msg = "🎉 You've completed all 12 Days of Sustainability! We will be awarding an additional prize to the team member who completed all 12 days and achieved the highest score!"
             else:
                 completion_msg = f"See you tomorrow for Day {current_day + 1}!"
             
