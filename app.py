@@ -1624,44 +1624,23 @@ st.markdown("""
         z-index: 10;
     }
     
-    /* FIX SELECTBOX READABILITY - Aggressive targeting for dark mode */
-    /* Target all selectbox text elements */
-    [data-baseweb="select"] {
+    /* FIX SELECTBOX TEXT VISIBILITY - Works in both light and dark mode */
+    /* Use Streamlit's theme variables instead of hardcoded colors */
+    
+    /* Target the selected value text */
+    [data-baseweb="select"] [class*="singleValue"] {
         color: var(--text-color) !important;
     }
     
-    [data-baseweb="select"] > div {
-        background-color: var(--background-color) !important;
+    /* Target the placeholder text */
+    [data-baseweb="select"] [class*="placeholder"] {
+        color: var(--text-color) !important;
+        opacity: 0.7;
     }
     
-    /* The actual selected value display - this is the key element */
-    [data-baseweb="select"] [class*="ValueContainer"] {
+    /* Target by nested div structure as fallback */
+    [data-baseweb="select"] > div > div > div {
         color: var(--text-color) !important;
-    }
-    
-    [data-baseweb="select"] [class*="SingleValue"] {
-        color: var(--text-color) !important;
-    }
-    
-    /* Input field */
-    [data-baseweb="select"] [class*="Input"] {
-        color: var(--text-color) !important;
-    }
-    
-    /* Placeholder */
-    [data-baseweb="select"] [class*="Placeholder"] {
-        color: var(--text-color) !important;
-        opacity: 0.6;
-    }
-
-    /* Hover state */
-    [data-baseweb="select"] > div:hover {
-        border-color: #22c55e !important;
-    }
-
-    /* Dropdown menu */
-    [data-baseweb="select"] [role="listbox"] {
-        background-color: var(--background-color) !important;
     }
     
     /* Dropdown options */
@@ -1673,19 +1652,11 @@ st.markdown("""
     /* Selected option in dropdown */
     [data-baseweb="select"] [role="option"][aria-selected="true"] {
         background-color: rgba(34, 197, 94, 0.2) !important;
-        color: var(--text-color) !important;
     }
     
-    /* Hover over options */
-    [data-baseweb="select"] [role="option"]:hover {
-        background-color: rgba(34, 197, 94, 0.1) !important;
-    }
-    
-    /* Nuclear option - force everything inside selectbox */
-    [data-baseweb="select"] div,
-    [data-baseweb="select"] span,
-    [data-baseweb="select"] input {
-        color: var(--text-color) !important;
+    /* Dropdown container */
+    [data-baseweb="select"] [role="listbox"] {
+        background-color: var(--background-color) !important;
     }
     
     /* Animations */
@@ -2939,7 +2910,7 @@ def main():
         if result['correct']:
             # Different message for Day 12
             if current_day == 12:
-                completion_msg = "🎉 You've completed all 12 Days of Sustainability!"
+                completion_msg = "🎉 You've completed all 12 Days of Sustainability! We will be awarding an additional prize to the team member who completed all 12 days and achieved the highest score!"
             else:
                 completion_msg = f"See you tomorrow for Day {current_day + 1}!"
             
