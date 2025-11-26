@@ -893,7 +893,7 @@ PROPERTIES = [
     "CIE",
     "CIV",
     "EH",
-    "Head Office"
+    "Central Office"
 ]
 
 # Achievements data
@@ -960,14 +960,14 @@ ACHIEVEMENTS = [
         "subtitle": "Record Performance",
         "emoji": "♻️",
         "color": "#059669",
-        "description": "Improved from 37% to 48% YoY through enhanced programs and team engagement.",
+        "description": "Improved from 37% to 48% year on year (YoY) through enhanced programs and team engagement.",
         "stats": [
-            {"label": "YoY Growth", "value": "+11%"},
+            {"label": "Year on Year (YoY) Growth", "value": "+11%"},
             {"label": "Oct Recycling Rate", "value": "51%"},
             {"label": "Tonnes Recycled in 2025", "value": "227"}
         ],
         "quiz": {
-            "question": "What was our year-over-year recycling improvement?",
+            "question": "What was our year on year recycling improvement?",
             "options": ["+8%", "+11%", "+15%", "+20%"],
             "correct": "+11%"
         }
@@ -982,10 +982,10 @@ ACHIEVEMENTS = [
         "stats": [
             {"label": "Cost Savings", "value": "£137K"},
             {"label": "kWh Reduced", "value": " 1,068,745.90"},
-            {"label": "Property that Reduced the Most", "value": "CIE"}
+            {"label": "Property that Reduced the Most Compared to Their Previous Year Performance", "value": "CIE"}
         ],
         "quiz": {
-            "question": "Which property saved the most energy?",
+            "question": "Which property saved the most energy compared to their prior year performance?",
             "options": ["CIE", "EH", "Westin", "St Albans"],
             "correct": "CIE"
         }
@@ -998,8 +998,8 @@ ACHIEVEMENTS = [
         "color": "#06b6d4",
         "description": "Smart water management systems reducing consumption across all properties.",
         "stats": [
-            {"label": "Litres Saved", "value": "1.241M"},
-            {"label": "Saved the Equivalent of an Olympic Sized Pool", "value": "1/2"},
+            {"label": "Litres Saved", "value": "1.24M"},
+            {"label": "", "Properties Have Low Flow Rate Showers and Taps": "6/7"},
             {"label": "Reduction", "value": "2%"}
         ],
         "quiz": {
@@ -1016,9 +1016,9 @@ ACHIEVEMENTS = [
         "color": "#84cc16",
         "description": "Comprehensive food waste program with donations and composting initiatives.",
         "stats": [
-            {"label": "Meals Saved", "value": "3,502"},
             {"label": "Waste Reduced", "value": "14%"},
-            {"label": "Value", "value": "£7,004"}
+            {"label": "Equivalent of Meals Saved From Reduction", "value": "3,502"},
+            {"label": "Equivalent of Cost Savings From Reduction", "value": "£7,004"}
         ],
         "quiz": {
             "question": "How many meals were saved from waste?",
@@ -1032,10 +1032,10 @@ ACHIEVEMENTS = [
         "subtitle": "Reusing Materials",
         "emoji": "🛍️",
         "color": "#8b5cf6",
-        "description": "Upcycling materials and finding them a new home",
+        "description": "Upcycling materials and finding them a new home. We've made 92 items available since Jan 2025 via the 4C marketplace.",
         "stats": [
-            {"label": "Number of items available on our marketplace", "value": "85"},
-            {"label": "Number of items we've given away", "value": "50"},
+            {"label": "Number of items we've given away since January", "value": "42"},
+            {"label": "Number of items currently available on the 4C marketplace", "value": "50"},
             {"label": "Cost of Items available on Our Marketplace (All Donated to a Charity!)", "value": "£1-£5"},
 
                             ],
@@ -1053,8 +1053,8 @@ ACHIEVEMENTS = [
         "color": "#ec4899",
         "description": "Comprehensive sustainability training empowering team members as change agents.",
         "stats": [
-            {"label": "Number of Hotels Have Introduced No Bin Day in Staff Canteens", "value": "3"},
-            {"label": "Number of Sustainability Courses", "value": "3"}
+            {"label": "No of Hotels Have Introduced No Bin Day in Staff Canteens", "value": "3"},
+            {"label": "No of Official Flow Sustainability Courses", "value": "3"}
         ],
         "quiz": {
             "question": "What everyday mindful behaviours have our team members adopted as a result of our sustainability efforts?",
@@ -1071,7 +1071,8 @@ ACHIEVEMENTS = [
         "description": "Measurable reduction in carbon emissions through comprehensive initiatives.",
         "stats": [
             {"label": "CO₂ Reduced", "value": "142.26T"},
-            {"label": "Reduction", "value": "6%"}        ],
+            {"label": "Reduction", "value": "6%"},
+                    {"label": "Priority Sustainable Development Goals We Support", "value": "8"}        ],
         "quiz": {
             "question": "How much did we reduce our carbon footprint?",
             "options": ["0%", "2%", "12%", "6%"],
@@ -1087,8 +1088,8 @@ ACHIEVEMENTS = [
         "description": "Collaborating with local organisations to amplify our positive impact.",
         "stats": [
             {"label": "Partnerships", "value": "30"},
-            {"label": "Money Raised", "value": "£75k"},
-            {"label": "Hours Given", "value": "94"}
+            {"label": "Donated", "value": "£75k"},
+            {"label": "Volunteered", "value": "94"}
         ],
         "quiz": {
             "question": "How many community partnerships did we establish?",
@@ -1104,12 +1105,12 @@ ACHIEVEMENTS = [
         "color": "#dc2626",
         "description": "Celebrating a transformative year of sustainability excellence and team dedication.",
         "stats": [
-            {"label": "Total Impact", "value": "£75k"},
+            {"label": "Donated", "value": "£75k"},
             {"label": "Initiatives", "value": "251"},
             {"label": "Team Pride", "value": "100%"}
         ],
         "quiz": {
-            "question": "How much money did we raise for charity in 2025?",
+            "question": "How much money did we contribute to charitable causes?",
             "options": ["£75K", "£18K", "£42K", "£53K"],
             "correct": "£75K"
         }
@@ -1266,7 +1267,7 @@ def main():
         <div class="welcome">
             <div class="emoji">🎄</div>
             <h1>12 Days of Sustainability</h1>
-            <p>Celebrating Our 2024 Achievements<br>December 1-12, 2025</p>
+            <p>Celebrating Our 2025 Achievements<br>December 1-12, 2025</p>
         </div>
         """, unsafe_allow_html=True)
         
