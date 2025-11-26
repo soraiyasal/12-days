@@ -1479,7 +1479,6 @@
 
 # if __name__ == "__main__":
 #     main()
-
 """
 🎄 12 DAYS OF SUSTAINABILITY - Interactive Campaign App
 """
@@ -2766,32 +2765,30 @@ def main():
         with st.form("user_entry_form"):
             name = st.text_input("Your Name", placeholder="Enter your full name...")
             
-            # Use SELECTBOX dropdown for property selection
-            property_select = st.selectbox(
-                "Your Property",
-                options=[""] + PROPERTIES,  # Add empty option as default
-                format_func=lambda x: "Select your property..." if x == "" else x,
-                index=0
+            # Use TEXT INPUT for property - simple and always works
+            property_input = st.text_input(
+                "Your Property", 
+                placeholder="Enter your property (e.g., Camden, St Albans, Westin...)"
             )
             
             submitted = st.form_submit_button("🎄 Start Journey", use_container_width=True, type="primary")
             
             if submitted:
-                if name and name.strip() and property_select and property_select != "":
+                if name and name.strip() and property_input and property_input.strip():
                     st.session_state.user_name = name.strip()
-                    st.session_state.user_property = property_select
+                    st.session_state.user_property = property_input.strip()
                     
                     # Log user registration to Google Sheets
                     try:
                         client = setup_google_sheets()
                         if client:
-                            log_user_registration(client, name.strip(), property_select)
+                            log_user_registration(client, name.strip(), property_input.strip())
                     except Exception as e:
                         pass  # Continue even if logging fails
                     
                     st.rerun()
                 else:
-                    st.error("⚠️ Please enter your name and select your property")
+                    st.error("⚠️ Please enter your name and property")
         
         return
     
