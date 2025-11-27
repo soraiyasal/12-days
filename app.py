@@ -2747,7 +2747,7 @@ def main():
         st.markdown("""
         <div class="welcome">
             <div class="emoji">🎄</div>
-            <h1>12 Days of Sustainability</h1>
+            <h1>12 Days of Sustainability Hotel Competition</h1>
             <p>Celebrating Our 2025 Achievements<br>December 1-12, 2025</p>
         </div>
         """, unsafe_allow_html=True)
