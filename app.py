@@ -2822,15 +2822,15 @@ def main():
         return
     
     # Top Bar
-    st.markdown(f"""
-    <div class="top-bar">
-        <div class="user-info">
-            <h3><span class="tree-icon">🎄</span> {st.session_state.user_name}</h3>
-            <p>{st.session_state.user_property}</p>
-        </div>
-        <div class="progress-badge">{len(st.session_state.completed_days)}/12</div>
-    </div>
-    """, unsafe_allow_html=True)
+    # st.markdown(f"""
+    # <div class="top-bar">
+    #     <div class="user-info">
+    #         <h3><span class="tree-icon">🎄</span> {st.session_state.user_name}</h3>
+    #         <p>{st.session_state.user_property}</p>
+    #     </div>
+    #     <div class="progress-badge">{len(st.session_state.completed_days)}/12</div>
+    # </div>
+    # """, unsafe_allow_html=True)
     
     # Prize Banner
     st.markdown("""
