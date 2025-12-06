@@ -2519,7 +2519,7 @@ ACHIEVEMENTS = [
             {"label": "Number of items currently available on the 4C marketplace", "value": "50"},
             {"label": "Cost of Items available on Our Marketplace (All Donated to a Charity!)", "value": "£1-£5"},
 
-                            ],
+         ],
         "quiz": {
             "question": "Which types of items do we have on our marketplace?",
             "options": ["Books", "Lamps", "Kindles", "All of the above"],
@@ -2553,7 +2553,8 @@ ACHIEVEMENTS = [
         "stats": [
             {"label": "CO₂ Reduced", "value": "142.26T"},
             {"label": "Reduction", "value": "6%"},
-                    {"label": "Priority Sustainable Development Goals We Support", "value": "8"}        ],
+                    {"label": "Priority Sustainable Development Goals We Support", "value": "8"}
+            ],
         "quiz": {
             "question": "How much did we reduce our carbon footprint?",
             "options": ["0%", "2%", "12%", "6%"],
