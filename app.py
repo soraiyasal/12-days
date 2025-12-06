@@ -2480,7 +2480,7 @@ ACHIEVEMENTS = [
         "description": "Smart water management systems reducing consumption across all properties.",
         "stats": [
             {"label": "Litres Saved", "value": "1.24M"},
-            {"label": "", "Properties Have Low Flow Rate Showers and Taps": "6/7"},
+            {"label": "Properties Have Low Flow Rate Showers and Taps", "value": "6/7"},
             {"label": "Reduction", "value": "2%"}
         ],
         "quiz": {
