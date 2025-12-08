@@ -2510,7 +2510,7 @@ ACHIEVEMENTS = [
     {
         "day": 8,
         "title": "Upcycling",
-        "subtitle": "Reusing Materials",
+        "subtitle": "Reusing Materials - Drop in to Canopy's Marketplace tmrw 3-6pm for FREE coco and goodies",
         "emoji": "🛍️",
         "color": "#8b5cf6",
         "description": "Upcycling materials and finding them a new home. We've made 92 items available since Jan 2025 via the 4C marketplace.",
