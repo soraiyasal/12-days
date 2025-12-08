@@ -2773,9 +2773,6 @@ def main():
                 <p style="color: var(--text-color); opacity: 0.6; font-size: 0.9rem;">
                     🎁 Complete all 12 days to win a £25 Amazon Gift Card!
                 </p>
-                    <p style="color: var(--text-color); opacity: 0.6; font-size: 0.9rem;">
-                    🎁 Drop in to Canopy tmrw 3-6pm for FREE hot chocolate & XMAS Market
-                </p>
                         
             </div>
             """, unsafe_allow_html=True)
@@ -2843,6 +2840,27 @@ def main():
         <p>Complete all 12 days → Win £25 Amazon Gift Card!</p>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Special Event Banner (Dec 8-9)
+    from datetime import date
+    today = date.today()
+    if today.month == 12 and today.day in [8, 9]:
+        st.markdown("""
+        <div style="
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255,255,255,0.2);
+        ">
+            <p style="margin: 0; font-size: 1rem; font-weight: 600; line-height: 1.5;">
+                🎁 Drop in to Canopy on Dec 9 from 3-6pm for FREE hot chocolate & XMAS Market! ☕🎄
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     
     # Achievement Card
     st.markdown(f"""
