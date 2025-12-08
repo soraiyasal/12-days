@@ -2771,8 +2771,12 @@ def main():
                     Check back on December 1st to begin your sustainability journey!
                 </p>
                 <p style="color: var(--text-color); opacity: 0.6; font-size: 0.9rem;">
-                    🎁 Complete all 12 days to win a £25 Amazon Gift Card! Drop in to Canopy's Marketplace tmrw 3-6pm for FREE coco and goodies
+                    🎁 Complete all 12 days to win a £25 Amazon Gift Card!
                 </p>
+                    <p style="color: var(--text-color); opacity: 0.6; font-size: 0.9rem;">
+                    🎁 Drop in to Canopy tmrw 3-6pm for FREE hot chocolate & XMAS Market
+                </p>
+                        
             </div>
             """, unsafe_allow_html=True)
             return
